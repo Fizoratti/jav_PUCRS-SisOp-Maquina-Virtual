@@ -2,11 +2,12 @@
 .gradle
 
 # Ignore Gradle build output directory
-build
-bin
+/build
+/bin
 
 # Ignore config files and directories
-.git
+/.vscode
+/.settings
+/.git
 .classpath
 .gitpod.yml
-.settings
