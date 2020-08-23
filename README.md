@@ -1,7 +1,10 @@
+
+
 <h3 align="center">
   <img src="https://img.shields.io/badge/platform-windows%20%7C%20linux%20%7C%20macos-blue" />
   <img src="https://img.shields.io/badge/java-%3E%3D13.0.0-blue" />
   <img src="https://img.shields.io/badge/gradle-6.1.1-blue" />
+  <img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Fizoratti/jav_PUCRS-SisOp-Maquina-Virtual" />
   <p></p>
   <p align="center">PUCRS - Escola Politécnica - 2020/2</p>
   <p align="center">Disciplina: Sistemas Operacionais</p>

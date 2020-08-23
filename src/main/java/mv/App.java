@@ -5,9 +5,15 @@ package mv;
 
 public class App {
 
+    public static VM vm;
+
     public static void main(String[] args) {
-        VM vm = new VM();
+        vm = new VM();
 		vm.test1();
+    }
+
+    public static VM getVM() {
+        return vm;
     }
     
 }
