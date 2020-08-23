@@ -28,7 +28,7 @@ Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido nes
 
 ###### Segunda parte
 
-🚧 *Em breve...* 🚧
+🚧ㅤ*Em breve...*ㅤ🚧
 
 ## Pré Requisitos
 
@@ -36,7 +36,7 @@ Antes de começar, você vai precisar ter instalado o [Git](https://git-scm.com)
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
 Usando a IDE de browser [GitPod](https://gitpod.io/) não é preciso instalar nada localmente no seu computador.
 
-## Getting Started
+## 🏃ㅤGetting Started
 
 > **Não é preciso instalar o gradle para rodar o código.**
 
@@ -51,7 +51,12 @@ $ cd jav_PUCRS-SisOp-Maquina-Virtual
 $ gradle run
 ```
 
-## 🚀 Features
+## 🌿ㅤBranches
+
+- ```master```: Branch com uma build do projeto com código que executa sem erros.
+- ```develop```: Branch para desenvolvimento de features.
+
+## 🚀ㅤFeatures
 
 ### OPCODES
 
@@ -88,7 +93,7 @@ Conjunto de instruções.
 - [ ] SWAP
 - [ ] STOP;
 
-## 🛠 Tecnologias
+## 🛠ㅤTecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
