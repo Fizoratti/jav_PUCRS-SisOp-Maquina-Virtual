@@ -28,7 +28,7 @@ Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido nes
 
 ###### Segunda parte
 
-*Em breve...*
+🚧 *Em breve...* 🚧
 
 ## Pré Requisitos
 
@@ -50,6 +50,43 @@ $ cd jav_PUCRS-SisOp-Maquina-Virtual
 # Execute a aplicação
 $ gradle run
 ```
+
+## 🚀 Features
+
+### OPCODES
+
+Conjunto de instruções.
+
+#### J - Type Instructions
+
+- [ ] JMP
+- [ ] JMPI
+- [ ] JMPIG
+- [ ] JMPIL
+- [ ] JMPIE
+
+#### I - Type Instructions
+
+- [ ] ADDI
+- [ ] SUBI
+- [ ] ANDI
+- [ ] ORI
+- [x] LDI
+- [ ] LDD
+- [x] STD
+
+#### R2 - Type Instructions
+
+- [ ] ADD
+- [ ] SUB
+- [ ] MULT
+- [ ] LDX
+- [ ] STX
+
+#### R1 - Type Instructions
+
+- [ ] SWAP
+- [ ] STOP;
 
 ## 🛠 Tecnologias
 

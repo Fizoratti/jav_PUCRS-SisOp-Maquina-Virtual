@@ -18,11 +18,11 @@ public class VM {
 
 	// --------------------- definicoes de opcode e palavra de memoria ---------------------------------------
 	private enum Opcode {
-		DADO, ___,		    // se memoria nesta posicao tem um dado, usa DADO, se nao usada ee NULO
+		DADO, ___,		    // se memoria nesta posicao tem um dado, usa DADO, se nao usada é NULO
 		JMP, JMPI, JMPIG, JMPIL, JMPIE, ADDI, SUBI, ANDI, ORI, LDI, LDD, STD, ADD, SUB, MULT, LDX, STX, SWAP, STOP;
 	}
 
-	private class Word { 	// cada posicao da memoria ee uma plavra, e tem uma instrucao (ou um dado)
+	private class Word { 	// cada posicao da memoria é uma palavra, e tem uma instrucao (ou um dado)
 		public Opcode opc; 	//
 		public int r1; 		// indice do primeiro registrador da operacao (Rs ou Rd cfe opcode na tabela)
 		public int r2; 		// indice do segundo registrador da operacao (Rc ou Rs cfe operacao)
@@ -51,7 +51,7 @@ public class VM {
 							// nas proximas versoes isto pode modificar, e vai permitir salvar e restaurar
 							// um processo na CPU
 
-		private Word[] m;   // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. ee sempre a mesma.
+		private Word[] m;   // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. é sempre a mesma.
 						
 		public CPU(Word[] _m) {     // ref a MEMORIA passada na criacao da CPU
 			m = _m; 				// usa o atributo 'm' para acessar a memoria.
