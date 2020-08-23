@@ -28,7 +28,7 @@ Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido nes
 
 ###### Segunda parte
 
-*Em breve...*
+🚧 *Em breve...* 🚧
 
 ## Pré Requisitos
 
@@ -55,11 +55,18 @@ $ gradle run
 
 ### OPCODES
 
+Conjunto de instruções.
+
+#### J - Type Instructions
+
 - [ ] JMP
 - [ ] JMPI
 - [ ] JMPIG
 - [ ] JMPIL
 - [ ] JMPIE
+
+#### I - Type Instructions
+
 - [ ] ADDI
 - [ ] SUBI
 - [ ] ANDI
@@ -67,11 +74,17 @@ $ gradle run
 - [x] LDI
 - [ ] LDD
 - [x] STD
+
+#### R2 - Type Instructions
+
 - [ ] ADD
 - [ ] SUB
 - [ ] MULT
 - [ ] LDX
 - [ ] STX
+
+#### R1 - Type Instructions
+
 - [ ] SWAP
 - [ ] STOP;
 
