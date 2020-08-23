@@ -51,6 +51,30 @@ $ cd jav_PUCRS-SisOp-Maquina-Virtual
 $ gradle run
 ```
 
+## 🚀 Features
+
+### OPCODES
+
+- [ ] JMP
+- [ ] JMPI
+- [ ] JMPIG
+- [ ] JMPIL
+- [ ] JMPIE
+- [ ] ADDI
+- [ ] SUBI
+- [ ] ANDI
+- [ ] ORI
+- [x] LDI
+- [ ] LDD
+- [x] STD
+- [ ] ADD
+- [ ] SUB
+- [ ] MULT
+- [ ] LDX
+- [ ] STX
+- [ ] SWAP
+- [ ] STOP;
+
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
