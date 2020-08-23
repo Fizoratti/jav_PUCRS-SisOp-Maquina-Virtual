@@ -7,3 +7,6 @@ bin
 
 # Ignore config files and directories
 .git
+.classpath
+.gitpod.yml
+.settings
