@@ -95,26 +95,71 @@ public class VM {
 							break;
 
 						case ADD: // Rd ← Rd + Rs
-							  
+							reg[ir.r1] = ir.r1 + ir.r2;
+							pc++;
 							break;
 
 						case ADDI: // Rd ← Rd + k
-							 
+							reg[ir.r1] = ir.r1 + ir.p;
+							pc++;
 							break;
 
-						case STX: // [Rd] ←Rs
-						    
+						case STX: // [Rd] ← Rs
+						    if (legal(ir.p)) {
+						    	reg[ir.p].p = reg[ir.r1];
+						    	pc++
+							};
 							break;
 
 						case SUB: // Rd ← Rd - Rs
-						 
+							reg[ir.r1] = ir.r1 - ir.r2;
+							pc++;
 							break;
 
 						case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1
-							 
+							if (reg[ir.r1] > 0) {
+								pc = reg[ir.r2];
+							} else {
+								pc++;
+							};
 							break;
 
-                        // falta entrar no switch JMP,JMPI,JMPIL,JMPIE,ADDI,ANDI,ORI,LDD,MULT,LDX,SWAP;
+                        // falta entrar no switch ANDI,ORI,SWAP;
+
+						case JMP:
+							pc = ir.p;
+							break;
+
+						case JMPI:
+							pc = reg[ir.r1];
+							break;
+
+						case JMPIL:
+							if (reg[ir.r1] < 0) {
+								pc = reg[ir.r1];
+							};
+							break;
+
+						case JMPIE:
+							if (reg[ir.r1] == 0) {
+								pc = reg[ir.r1];
+							};
+							break;
+
+						case LDD:
+							reg[ir.r1] = m[ir.p].p;
+							pc++;
+							break;
+
+						case MULTI:
+							reg[ir.r1] = ir.r1 * ir.r2;
+							pc++;
+							break;
+
+						case LDX:
+							reg[ir.r1] = m[ir.r2].p;
+							pc++;
+							break;
 
 						case STOP: //  para execucao
 							irpt = Interrupts.intSTOP;
