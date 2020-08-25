@@ -124,7 +124,7 @@ public class VM {
 							};
 							break;
 
-                        // falta entrar no switch ANDI,ORI,SWAP;
+                        // falta entrar no switch SWAP;
 
 						case JMP:
 							pc = ir.p;
@@ -161,10 +161,16 @@ public class VM {
 							pc++;
 							break;
 
+						case SWAP:
+							m[m.length-1] = ir.r1;
+							reg[ir.r1] = ir.r2;
+							reg[ir.r2] = m[m.length-1];
+							break;
+
 						case STOP: //  para execucao
 							irpt = Interrupts.intSTOP;
                             break;
-                            
+
 						case DADO:
 							 
 							break;
