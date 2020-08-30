@@ -105,9 +105,9 @@ public class VM {
 							break;
 
 						case STX: // [Rd] ← Rs
-						    if (legal(ir.p)) {
-						    	reg[ir.p].p = reg[ir.r1];
-						    	pc++
+						    if (legal(ir.r1)) {
+						    	m[ir.r1].p = reg[ir.ir2];
+						    	pc++;
 							};
 							break;
 
@@ -135,14 +135,18 @@ public class VM {
 							break;
 
 						case JMPIL:
-							if (reg[ir.r1] < 0) {
+							if (reg[ir.r2] < 0) {
 								pc = reg[ir.r1];
+							} else {
+								pc++;
 							};
 							break;
 
 						case JMPIE:
-							if (reg[ir.r1] == 0) {
+							if (reg[ir.r2] == 0) {
 								pc = reg[ir.r1];
+							} else {
+								pc++;
 							};
 							break;
 
@@ -162,9 +166,9 @@ public class VM {
 							break;
 
 						case SWAP:
-							m[m.length-1] = ir.r1;
+							int aux = ir.r1;
 							reg[ir.r1] = ir.r2;
-							reg[ir.r2] = m[m.length-1];
+							reg[ir.r2] = aux;
 							break;
 
 						case STOP: //  para execucao
@@ -172,7 +176,11 @@ public class VM {
                             break;
 
 						case DADO:
-							 
+							if (legal(ir.r1)) {
+								m[ir.p].opc = Opcode.DADO;
+								m[ir.p].p = ir.p;
+								pc++;
+							};
 							break;
 
 						default:
@@ -239,14 +247,43 @@ public class VM {
 	}
 
    //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
-   private class Programas {
-	   public Word[] progMinimo = new Word[] {
-		    new Word(Opcode.LDI, 0, -1, 999), 		
-			new Word(Opcode.STD, 0, -1, 10), 
-			new Word(Opcode.STD, 0, -1, 11), 
-			new Word(Opcode.STD, 0, -1, 12), 
-			new Word(Opcode.STD, 0, -1, 13), 
-			new Word(Opcode.STD, 0, -1, 14), 
-			new Word(Opcode.STOP, -1, -1, -1) };
-    }
+	private class Programas {
+   		public Word[] progMinimo = new Word[] {
+			new Word(Opcode.LDI, 0, -1, 999),
+			new Word(Opcode.STD, 0, -1, 10),
+			new Word(Opcode.STD, 0, -1, 11),
+			new Word(Opcode.STD, 0, -1, 12),
+			new Word(Opcode.STD, 0, -1, 13),
+			new Word(Opcode.STD, 0, -1, 14),
+			new Word(Opcode.STOP, -1, -1, -1);
+   		}
+
+   		public Word[] p4 = new Word[] {
+				new Word(Opcode.DADO, 0, 0, 5);
+				new Word(Opcode.DADO, 1, 0, 3);
+				new Word(Opcode.DADO, 2, 0, 4);
+				new Word(Opcode.DADO, 3, 0, 1);
+				new Word(Opcode.DADO, 4, 0, 2);
+
+				new Word(Opcode.LDI, 3, -1, 6);
+				new Word(Opcode.LDI, 2, -1, 5);
+				new Word(Opcode.LDI, 0, -1, 1);
+				new Word(Opcode.LDI, 1, -1, 1);
+				new Word(Opcode.JMPIL, 4, 2, -1);
+				new Word(Opcode.STOP, -1, -1, -1);
+				new Word(Opcode.LDX, 3, 0, -1);
+				new Word(Opcode.LDX. 4, 1, -1);
+				new Word(Opcode.SUB, 3, 4, -1);
+				new Word(Opcode.LDI, 4, -1, 12);
+				new Word(Opcode.JMPI, 4, 3, -1);
+				new Word(Opcode.JMP, -1, -1, 4);
+				new Word(Opcode.LDX, 3, 1, -1);
+				new Word(Opcode.SWAP, 3, 4, -1);
+				new Word(Opcode.STX, 0, 3, -1);
+				new Word(Opcode.STX, 1, 4, -1);
+				new Word(Opcode.ADDI, 0, -1, 1);
+				new Word(Opcode.ADDI, 1, -1, 1);
+				new Word(Opcode.JMP, -1, -1, 4);
+		}
+	}
 }
