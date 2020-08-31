@@ -106,7 +106,7 @@ public class VM {
 
 						case STX: // [Rd] ← Rs
 						    if (legal(ir.r1)) {
-						    	m[ir.r1].p = reg[ir.ir2];
+						    	m[ir.r1].p = reg[ir.r2];
 						    	pc++;
 							};
 							break;
