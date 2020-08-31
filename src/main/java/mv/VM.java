@@ -215,8 +215,8 @@ public class VM {
 
 						case DADO:
 							if (legal(ir.r1)) {
-								m[ir.p].opc = Opcode.DADO;
-								m[ir.p].p = ir.p;
+								m[ir.r1].opc = Opcode.DADO;
+								m[ir.r1].p = ir.p;
 								pc++;
 							};
 							break;
