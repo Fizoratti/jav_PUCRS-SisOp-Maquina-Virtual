@@ -259,31 +259,31 @@ public class VM {
    		};
 
    		public Word[] p4 = new Word[] {
-				new Word(Opcode.DADO, 0, 0, 5);
-				new Word(Opcode.DADO, 1, 0, 3);
-				new Word(Opcode.DADO, 2, 0, 4);
-				new Word(Opcode.DADO, 3, 0, 1);
-				new Word(Opcode.DADO, 4, 0, 2);
+			new Word(Opcode.DADO, 0, 0, 5),
+			new Word(Opcode.DADO, 1, 0, 3),
+			new Word(Opcode.DADO, 2, 0, 4),
+			new Word(Opcode.DADO, 3, 0, 1),
+			new Word(Opcode.DADO, 4, 0, 2),
 
-				new Word(Opcode.LDI, 3, -1, 6);
-				new Word(Opcode.LDI, 2, -1, 5);
-				new Word(Opcode.LDI, 0, -1, 1);
-				new Word(Opcode.LDI, 1, -1, 1);
-				new Word(Opcode.JMPIL, 4, 2, -1);
-				new Word(Opcode.STOP, -1, -1, -1);
-				new Word(Opcode.LDX, 3, 0, -1);
-				new Word(Opcode.LDX. 4, 1, -1);
-				new Word(Opcode.SUB, 3, 4, -1);
-				new Word(Opcode.LDI, 4, -1, 12);
-				new Word(Opcode.JMPI, 4, 3, -1);
-				new Word(Opcode.JMP, -1, -1, 4);
-				new Word(Opcode.LDX, 3, 1, -1);
-				new Word(Opcode.SWAP, 3, 4, -1);
-				new Word(Opcode.STX, 0, 3, -1);
-				new Word(Opcode.STX, 1, 4, -1);
-				new Word(Opcode.ADDI, 0, -1, 1);
-				new Word(Opcode.ADDI, 1, -1, 1);
-				new Word(Opcode.JMP, -1, -1, 4);
-		}
+			new Word(Opcode.LDI, 3, -1, 6),
+			new Word(Opcode.LDI, 2, -1, 5),
+			new Word(Opcode.LDI, 0, -1, 1),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.JMPIL, 4, 2, -1),
+			new Word(Opcode.STOP, -1, -1, -1),
+			new Word(Opcode.LDX, 3, 0, -1),
+			new Word(Opcode.LDX, 4, 1, -1),
+			new Word(Opcode.SUB, 3, 4, -1),
+			new Word(Opcode.LDI, 4, -1, 12),
+			new Word(Opcode.JMPI, 4, 3, -1),
+			new Word(Opcode.JMP, -1, -1, 4),
+			new Word(Opcode.LDX, 3, 1, -1),
+			new Word(Opcode.SWAP, 3, 4, -1),
+			new Word(Opcode.STX, 0, 3, -1),
+			new Word(Opcode.STX, 1, 4, -1),
+			new Word(Opcode.ADDI, 0, -1, 1),
+			new Word(Opcode.ADDI, 1, -1, 1),
+			new Word(Opcode.JMP, -1, -1, 4)
+		};
 	}
 }
