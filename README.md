@@ -18,7 +18,7 @@ Nossa máquina virtual (MV) tem CPU e Memória.
 ## Trabalho Prático
 
 ###### Enunciado do trabalho
-Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/2996451/mod_resource/content/11/TrabalhoSO2020-2-VM-Fase1.pdf) que está no Moodle com o enunciado completo.
+Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3351670/mod_resource/content/14/TrabalhoSO2020-2-VMv2-Fase1.pdf) que está no Moodle com o enunciado completo.
 
 ###### Primeira parte
 
@@ -28,7 +28,7 @@ Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido nes
 
 ###### Segunda parte
 
-🚧ㅤ*Em breve...*ㅤ🚧
+🚧ㅤEm breve...ㅤ🚧
 
 ## Pré Requisitos
 
@@ -69,10 +69,10 @@ Conjunto de instruções.
 - [x] JMPIG
 - [x] JMPIL
 - [x] JMPIE
-- [ ] JMPIM
-- [ ] JMPIGM
-- [ ] JMPILM
-- [ ] JMPIEM
+- [ ] JMPIMㅤ```new```
+- [ ] JMPIGMㅤ```new```
+- [ ] JMPILMㅤ```new```
+- [ ] JMPIEMㅤ```new```
 
 #### I - Type Instructions
 
