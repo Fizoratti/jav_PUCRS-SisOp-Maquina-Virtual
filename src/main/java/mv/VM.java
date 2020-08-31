@@ -246,6 +246,17 @@ public class VM {
 		aux.dump(m, 0, 15);
 	}
 
+	public void test4(){
+		Word[] p = new Programas().p4;
+		aux.carga(p, m);
+		cpu.setContext(0, tamMem - 1, 0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(m, 0, 15);
+		System.out.println("---------------------------------- após execucao ");
+		cpu.run();
+		aux.dump(m, 0, 15);
+	}
+
    //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
 	private class Programas {
    		public Word[] progMinimo = new Word[] {
