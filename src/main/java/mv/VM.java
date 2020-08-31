@@ -73,47 +73,23 @@ public class VM {
 			return true;
 		}
 
-		public void run() { 		// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
-			while (true) { 			// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
+		public void run() { 				// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
+			while (true) { 				// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 				// FETCH
-				if (legal(pc)) { 	// pc valido
-					ir = m[pc]; 	// busca posicao da memoria apontada por pc, guarda em ir
-				// EXECUTA INSTRUCAO NO ir
-					switch (ir.opc) { // DADO,JMP,JMPI,JMPIG,JMPIL,JMPIE,ADDI,SUBI,ANDI,ORI,LDI,LDD,STD,ADD,SUB,MULT,LDX,STX,SWAP,STOP;
+				if (legal(pc)) { 		// pc valido
+					ir = m[pc]; 		// busca posicao da memoria apontada por pc, guarda em ir
+										// EXECUTA INSTRUCAO NO ir
+					switch (ir.opc) { 	// DADO,JMP,JMPI,JMPIG,JMPIL,JMPIE,ADDI,SUBI,ANDI,ORI,LDI,LDD,STD,ADD,SUB,MULT,LDX,STX,SWAP,STOP;
 
-						case LDI: // Rd ← k
-							reg[ir.r1] = ir.p;
-							pc++;
+
+						// ----- J - Type Instructions ----- 
+
+						case JMP: // PC ← k 
+							pc = ir.p;
 							break;
 
-						case STD: // [A] ← Rs
-						    if (legal(ir.p)) {
-							    m[ir.p].opc = Opcode.DADO;
-							    m[ir.p].p = reg[ir.r1];
-							    pc++;
-							};
-							break;
-
-						case ADD: // Rd ← Rd + Rs
-							reg[ir.r1] = ir.r1 + ir.r2;
-							pc++;
-							break;
-
-						case ADDI: // Rd ← Rd + k
-							reg[ir.r1] = ir.r1 + ir.p;
-							pc++;
-							break;
-
-						case STX: // [Rd] ← Rs
-						    if (legal(ir.r1)) {
-						    	m[ir.r1].p = reg[ir.r2];
-						    	pc++;
-							};
-							break;
-
-						case SUB: // Rd ← Rd - Rs
-							reg[ir.r1] = ir.r1 - ir.r2;
-							pc++;
+						case JMPI: // PC ← Rs
+							pc = reg[ir.r1];
 							break;
 
 						case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1
@@ -124,17 +100,7 @@ public class VM {
 							};
 							break;
 
-                        // falta entrar no switch SWAP;
-
-						case JMP:
-							pc = ir.p;
-							break;
-
-						case JMPI:
-							pc = reg[ir.r1];
-							break;
-
-						case JMPIL:
+						case JMPIL: // if Rc < 0 then PC ← Rs Else PC ← PC +1
 							if (reg[ir.r2] < 0) {
 								pc = reg[ir.r1];
 							} else {
@@ -142,7 +108,7 @@ public class VM {
 							};
 							break;
 
-						case JMPIE:
+						case JMPIE: // if Rc = 0 then PC ← Rs Else PC ← PC +1
 							if (reg[ir.r2] == 0) {
 								pc = reg[ir.r1];
 							} else {
@@ -150,20 +116,84 @@ public class VM {
 							};
 							break;
 
-						case LDD:
+						case JMPIM: // PC ← [A]
+							break;
+
+						case JMPIGM: // if Rc > 0 then PC ← [A] Else PC ← PC +1
+							break;
+						
+						case JMPILM: // if Rc < 0 then PC ← [A] Else PC ← PC +1
+							break;
+
+						case JMPIEM: // if Rc = 0 then PC ← [A] Else PC ← PC +1
+							break;
+						
+						
+
+						// ----- I - Type Instructions ----- 
+
+						case ADDI: // Rd ← Rd + k
+							reg[ir.r1] = ir.r1 + ir.p;
+							pc++;
+							break;
+						
+						case SUBI: // Rd ← Rd – k
+							break;
+
+						case LDI: // Rd ← k
+							reg[ir.r1] = ir.p;
+							pc++;
+							break;
+
+						case LDD: // Rd ← [A]
 							reg[ir.r1] = m[ir.p].p;
 							pc++;
 							break;
 
-						case MULT:
+						case STD: // [A] ← Rs
+						    if (legal(ir.p)) {
+							    m[ir.p].opc = Opcode.DADO;
+							    m[ir.p].p = reg[ir.r1];
+							    pc++;
+							};
+							break;
+						
+
+						
+						// ----- R2 - Type Instructions ----- 
+
+						case ADD: // Rd ← Rd + Rs
+							reg[ir.r1] = ir.r1 + ir.r2;
+							pc++;
+							break;
+
+						case SUB: // Rd ← Rd - Rs
+							reg[ir.r1] = ir.r1 - ir.r2;
+							pc++;
+							break;
+
+						case MULT: // Rd ← Rd * Rs
 							reg[ir.r1] = ir.r1 * ir.r2;
 							pc++;
 							break;
 
-						case LDX:
+						case LDX: // Rd ← [Rs] 
 							reg[ir.r1] = m[ir.r2].p;
 							pc++;
 							break;
+
+						case STX: // [Rd] ← Rs
+						    if (legal(ir.r1)) {
+						    	m[ir.r1].p = reg[ir.r2];
+						    	pc++;
+							};
+							break;
+
+                        // falta entrar no switch SWAP;
+
+						
+
+						// ----- R1 - Type Instructions ----- 
 
 						case SWAP:
 							int aux = ir.r1;
@@ -175,6 +205,10 @@ public class VM {
 							irpt = Interrupts.intSTOP;
                             break;
 
+
+
+						// ----- DADO ----- 
+
 						case DADO:
 							if (legal(ir.r1)) {
 								m[ir.p].opc = Opcode.DADO;
@@ -184,10 +218,11 @@ public class VM {
 							break;
 
 						default:
-							 
+							System.out.println("Instrução não reconhecida pelo switch no método run().");
 							break;
 					}
 				}
+
 				// verifica int - agora simplesmente para programa em qualquer caso
 				if (!(irpt == Interrupts.noInterrupt)) {
 					System.out.print("Interrupcao ");
@@ -198,6 +233,7 @@ public class VM {
 		}
 	}
 
+	
 	// -------------------------------------------  classes e funcoes auxiliares
 	private class Aux {
 		public void dump(Word w) {
@@ -220,6 +256,8 @@ public class VM {
 	}
 	// -------------------------------------------  fim classes e funcoes auxiliares
 
+
+
 	// -------------------------------------------- atributos e construcao da VM
 	public int tamMem;    
     public Word[] m;     
@@ -233,6 +271,7 @@ public class VM {
 		cpu = new CPU(m);
 		aux = new Aux();
 	}	
+
 
 	// -------------------------------------------- teste da VM ,  veja classe de programas
 	public void test1(){
