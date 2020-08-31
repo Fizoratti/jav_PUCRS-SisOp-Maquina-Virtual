@@ -155,7 +155,7 @@ public class VM {
 							pc++;
 							break;
 
-						case MULTI:
+						case MULT:
 							reg[ir.r1] = ir.r1 * ir.r2;
 							pc++;
 							break;
