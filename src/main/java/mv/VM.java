@@ -255,8 +255,8 @@ public class VM {
 			new Word(Opcode.STD, 0, -1, 12),
 			new Word(Opcode.STD, 0, -1, 13),
 			new Word(Opcode.STD, 0, -1, 14),
-			new Word(Opcode.STOP, -1, -1, -1);
-   		}
+			new Word(Opcode.STOP, -1, -1, -1)
+   		};
 
    		public Word[] p4 = new Word[] {
 				new Word(Opcode.DADO, 0, 0, 5);
