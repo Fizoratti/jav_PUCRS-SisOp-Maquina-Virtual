@@ -95,33 +95,92 @@ public class VM {
 							break;
 
 						case ADD: // Rd ← Rd + Rs
-							  
+							reg[ir.r1] = ir.r1 + ir.r2;
+							pc++;
 							break;
 
 						case ADDI: // Rd ← Rd + k
-							 
+							reg[ir.r1] = ir.r1 + ir.p;
+							pc++;
 							break;
 
-						case STX: // [Rd] ←Rs
-						    
+						case STX: // [Rd] ← Rs
+						    if (legal(ir.r1)) {
+						    	m[ir.r1].p = reg[ir.r2];
+						    	pc++;
+							};
 							break;
 
 						case SUB: // Rd ← Rd - Rs
-						 
+							reg[ir.r1] = ir.r1 - ir.r2;
+							pc++;
 							break;
 
 						case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1
-							 
+							if (reg[ir.r1] > 0) {
+								pc = reg[ir.r2];
+							} else {
+								pc++;
+							};
 							break;
 
-                        // falta entrar no switch JMP,JMPI,JMPIL,JMPIE,ADDI,ANDI,ORI,LDD,MULT,LDX,SWAP;
+                        // falta entrar no switch SWAP;
+
+						case JMP:
+							pc = ir.p;
+							break;
+
+						case JMPI:
+							pc = reg[ir.r1];
+							break;
+
+						case JMPIL:
+							if (reg[ir.r2] < 0) {
+								pc = reg[ir.r1];
+							} else {
+								pc++;
+							};
+							break;
+
+						case JMPIE:
+							if (reg[ir.r2] == 0) {
+								pc = reg[ir.r1];
+							} else {
+								pc++;
+							};
+							break;
+
+						case LDD:
+							reg[ir.r1] = m[ir.p].p;
+							pc++;
+							break;
+
+						case MULT:
+							reg[ir.r1] = ir.r1 * ir.r2;
+							pc++;
+							break;
+
+						case LDX:
+							reg[ir.r1] = m[ir.r2].p;
+							pc++;
+							break;
+
+						case SWAP:
+							int aux = ir.r1;
+							reg[ir.r1] = ir.r2;
+							reg[ir.r2] = aux;
+							break;
 
 						case STOP: //  para execucao
 							irpt = Interrupts.intSTOP;
                             break;
-                            
+
 						case DADO:
-							 
+							if (legal(ir.r1)) {
+								m[ir.p].opc = Opcode.DADO;
+								m[ir.p].p = ir.p;
+								pc++;
+							};
 							break;
 
 						default:
@@ -188,14 +247,43 @@ public class VM {
 	}
 
    //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
-   private class Programas {
-	   public Word[] progMinimo = new Word[] {
-		    new Word(Opcode.LDI, 0, -1, 999), 		
-			new Word(Opcode.STD, 0, -1, 10), 
-			new Word(Opcode.STD, 0, -1, 11), 
-			new Word(Opcode.STD, 0, -1, 12), 
-			new Word(Opcode.STD, 0, -1, 13), 
-			new Word(Opcode.STD, 0, -1, 14), 
-			new Word(Opcode.STOP, -1, -1, -1) };
-    }
+	private class Programas {
+   		public Word[] progMinimo = new Word[] {
+			new Word(Opcode.LDI, 0, -1, 999),
+			new Word(Opcode.STD, 0, -1, 10),
+			new Word(Opcode.STD, 0, -1, 11),
+			new Word(Opcode.STD, 0, -1, 12),
+			new Word(Opcode.STD, 0, -1, 13),
+			new Word(Opcode.STD, 0, -1, 14),
+			new Word(Opcode.STOP, -1, -1, -1)
+   		};
+
+   		public Word[] p4 = new Word[] {
+			new Word(Opcode.DADO, 0, 0, 5),
+			new Word(Opcode.DADO, 1, 0, 3),
+			new Word(Opcode.DADO, 2, 0, 4),
+			new Word(Opcode.DADO, 3, 0, 1),
+			new Word(Opcode.DADO, 4, 0, 2),
+
+			new Word(Opcode.LDI, 3, -1, 6),
+			new Word(Opcode.LDI, 2, -1, 5),
+			new Word(Opcode.LDI, 0, -1, 1),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.JMPIL, 4, 2, -1),
+			new Word(Opcode.STOP, -1, -1, -1),
+			new Word(Opcode.LDX, 3, 0, -1),
+			new Word(Opcode.LDX, 4, 1, -1),
+			new Word(Opcode.SUB, 3, 4, -1),
+			new Word(Opcode.LDI, 4, -1, 12),
+			new Word(Opcode.JMPI, 4, 3, -1),
+			new Word(Opcode.JMP, -1, -1, 4),
+			new Word(Opcode.LDX, 3, 1, -1),
+			new Word(Opcode.SWAP, 3, 4, -1),
+			new Word(Opcode.STX, 0, 3, -1),
+			new Word(Opcode.STX, 1, 4, -1),
+			new Word(Opcode.ADDI, 0, -1, 1),
+			new Word(Opcode.ADDI, 1, -1, 1),
+			new Word(Opcode.JMP, -1, -1, 4)
+		};
+	}
 }
