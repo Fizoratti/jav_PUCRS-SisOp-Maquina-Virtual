@@ -19,7 +19,11 @@ public class VM {
 	// --------------------- definicoes de opcode e palavra de memoria ---------------------------------------
 	private enum Opcode {
 		DADO, ___,		    // se memoria nesta posicao tem um dado, usa DADO, se nao usada é NULO
-		JMP, JMPI, JMPIG, JMPIL, JMPIE, ADDI, SUBI, ANDI, ORI, LDI, LDD, STD, ADD, SUB, MULT, LDX, STX, SWAP, STOP;
+		JMP, JMPI, JMPIG, JMPIL, JMPIE, 	// J - Type Instructions 
+			JMPIM, JMPIGM, JMPILM, JMPIEM, 		
+		ADDI, SUBI, LDI, LDD, STD,      	// I - Type Instructions
+		ADD, SUB, MULT, LDX, STX, 			// R2 - Type Instructions
+		SWAP, STOP;							// R1 - Type Instructions
 	}
 
 	private class Word { 	// cada posicao da memoria é uma palavra, e tem uma instrucao (ou um dado)
@@ -233,7 +237,7 @@ public class VM {
 		}
 	}
 
-	
+
 	// -------------------------------------------  classes e funcoes auxiliares
 	private class Aux {
 		public void dump(Word w) {
