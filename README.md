@@ -53,7 +53,7 @@ $ gradle run
 
 ## 🌿ㅤBranches
 
-- ```master```: Branch com uma build do projeto com código que executa sem erros.
+- ```master```: Branch com a última build do projeto em que o código que executa sem erros.
 - ```develop```: Branch para desenvolvimento de features.
 
 ## 🚀ㅤFeatures
@@ -64,34 +64,38 @@ Conjunto de instruções.
 
 #### J - Type Instructions
 
-- [ ] JMP
-- [ ] JMPI
-- [ ] JMPIG
-- [ ] JMPIL
-- [ ] JMPIE
+- [x] JMP
+- [x] JMPI
+- [x] JMPIG
+- [x] JMPIL
+- [x] JMPIE
+- [ ] JMPIM
+- [ ] JMPIGM
+- [ ] JMPILM
+- [ ] JMPIEM
 
 #### I - Type Instructions
 
-- [ ] ADDI
+- [x] ADDI
 - [ ] SUBI
-- [ ] ANDI
-- [ ] ORI
+- [x] ~ANDI~
+- [x] ~ORI~
 - [x] LDI
-- [ ] LDD
+- [x] LDD
 - [x] STD
 
 #### R2 - Type Instructions
 
-- [ ] ADD
-- [ ] SUB
-- [ ] MULT
-- [ ] LDX
-- [ ] STX
+- [x] ADD
+- [x] SUB
+- [x] MULT
+- [x] LDX
+- [x] STX
 
 #### R1 - Type Instructions
 
-- [ ] SWAP
-- [ ] STOP;
+- [x] SWAP
+- [x] STOP;
 
 ## 🛠ㅤTecnologias
 
