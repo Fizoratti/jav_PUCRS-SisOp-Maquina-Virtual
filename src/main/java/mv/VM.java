@@ -193,16 +193,14 @@ public class VM {
 							};
 							break;
 
-                        // falta entrar no switch SWAP;
-
-						
 
 						// ----- R1 - Type Instructions ----- 
 
 						case SWAP:
-							int aux = ir.r1;
-							reg[ir.r1] = ir.r2;
+							int aux = reg[ir.r1];
+							reg[ir.r1] = reg[ir.r2];
 							reg[ir.r2] = aux;
+							pc++;
 							break;
 
 						case STOP: //  para execucao
