@@ -192,9 +192,9 @@ public class VM {
 
 						case STX: // [Rd] ← Rs
 						    if (legal(ir.r1)) {
-								m[ir.r1].opc = Opcode.DADO;
-						    	m[ir.r1].p = reg[ir.r2];
-						    	pc++;
+								m[reg[ir.r1]].opc = Opcode.DADO;
+							    m[reg[ir.r1]].p = reg[ir.r2];
+							    pc++;
 							};
 							break;
 
@@ -292,15 +292,15 @@ public class VM {
 		aux.dump(m, 0, 15);
 	}
 
-	public void test4(){
-		Word[] p = new Programas().test;
+	public void p1(){
+		Word[] p = new Programas().p1;
 		aux.carga(p, m);
 		cpu.setContext(0, tamMem - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 11);
+		aux.dump(m, 0, 32);
 	}
 
    //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
@@ -315,31 +315,25 @@ public class VM {
 			new Word(Opcode.STOP, -1, -1, -1)
    		};
 
-		public Word[] test = new Word[] {
-			new Word(Opcode.LDI, 0, -1, 2),
-			new Word(Opcode.LDI, 1, -1, 2),
-			new Word(Opcode.MULT, 0, 1, -1),
-			new Word(Opcode.STD, 0, -1, 10),
+		public Word[] p1 = new Word[] {
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.STD, 0, -1, 20),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.STD, 1, -1, 21),
+			new Word(Opcode.LDI, 7, -1, 22),
+			new Word(Opcode.LDI, 5, -1, 6),
+			new Word(Opcode.LDI, 6, -1, 31),
+			new Word(Opcode.LDI, 2, -1, 0),
+			new Word(Opcode.ADD, 2, 0, -1),
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.ADD, 0, 1, -1),
+			new Word(Opcode.ADD, 1, 2, -1),
+			new Word(Opcode.STX, 7, 1, -1),
+			new Word(Opcode.ADDI, 7, -1, 1),
+			new Word(Opcode.SUB, 6, 7, -1),
+			new Word(Opcode.JMPIG, 5, 6, -1),
 			new Word(Opcode.STOP, -1, -1, -1),
 		};
-
-		// public Word[] test = new Word[] {
-		// 	new Word(Opcode.LDI, 0, -1, 0),
-		// 	new Word(Opcode.STD, 0, -1, 50),
-		// 	new Word(Opcode.LDI, 1, -1, 1),
-		// 	new Word(Opcode.STD, 1, -1, 51),
-		// 	new Word(Opcode.LDI, 7, -1, 52),
-		// 	new Word(Opcode.LDI, 5, -1, 6),
-		// 	new Word(Opcode.LDI, 6, -1, 61),
-		// 	new Word(Opcode.LDI, 2, -1, 0),
-		// 	new Word(Opcode.ADD, 0, 1, -1),
-		// 	new Word(Opcode.ADD, 1, 2, -1),
-		// 	new Word(Opcode.STX, 7, 1, -1),
-		// 	new Word(Opcode.ADDI, 7, -1, 1),
-		// 	new Word(Opcode.SUB, 6, 7, -1),
-		// 	new Word(Opcode.JMPIG, 5, 6, -1),
-		// 	new Word(Opcode.STOP, -1, -1, -1),
-		// };
 
    		public Word[] p4 = new Word[] {
 			new Word(Opcode.DADO, 0, 0, 5),

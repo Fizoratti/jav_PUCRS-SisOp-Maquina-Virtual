@@ -14,7 +14,7 @@ public class App {
         // vm.test1();
         // vm.test2();
         // vm.test3();
-        vm.test4();
+        vm.p1();
         
     }
 
