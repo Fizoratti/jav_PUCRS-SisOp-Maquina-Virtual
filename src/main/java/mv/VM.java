@@ -303,7 +303,40 @@ public class VM {
 		aux.dump(m, 0, 32);
 	}
 
-   //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
+	public void p2(){
+		Word[] p = new Programas().p2;
+		aux.carga(p, m);
+		cpu.setContext(0, tamMem - 1, 0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(m, 0, 15);
+		System.out.println("---------------------------------- após execucao ");
+		cpu.run();
+		aux.dump(m, 0, 62);
+	}
+
+	public void p3(){
+		Word[] p = new Programas().p3;
+		aux.carga(p, m);
+		cpu.setContext(0, tamMem - 1, 0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(m, 0, 15);
+		System.out.println("---------------------------------- após execucao ");
+		cpu.run();
+		aux.dump(m, 0, 62);
+	}
+
+	public void p4(){
+		Word[] p = new Programas().p4;
+		aux.carga(p, m);
+		cpu.setContext(0, tamMem - 1, 0);
+		System.out.println("---------------------------------- programa carregado ");
+		aux.dump(m, 0, 15);
+		System.out.println("---------------------------------- após execucao ");
+		cpu.run();
+		aux.dump(m, 0, 62);
+	}
+   
+   	//  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
 	private class Programas {
    		public Word[] progMinimo = new Word[] {
 			new Word(Opcode.LDI, 0, -1, 999),
@@ -332,6 +365,67 @@ public class VM {
 			new Word(Opcode.ADDI, 7, -1, 1),
 			new Word(Opcode.SUB, 6, 7, -1),
 			new Word(Opcode.JMPIG, 5, 6, -1),
+			new Word(Opcode.STOP, -1, -1, -1),
+		};
+
+		public Word[] p2 = new Word[] {
+			new Word(Opcode.LDI, 0, -1, -1),
+			new Word(Opcode.LDI, 1, -1, 0),
+			new Word(Opcode.LDI, 2, -1, 1),
+			new Word(Opcode.LDI, 3, -1, 50),
+			new Word(Opcode.LDX, 4, 3, -1),
+			new Word(Opcode.LDI, 5, -1, 18),
+			new Word(Opcode.LDI, 6, -1, 32),
+			new Word(Opcode.JMPIL, 5, 4, -1),
+			new Word(Opcode.JMPIE, 6, 4, -1),
+			new Word(Opcode.STX, 3, 1, -1),
+			new Word(Opcode.ADDI, 3, -1, 1),
+			new Word(Opcode.SUBI, 4, -1, 1),
+			new Word(Opcode.JMPIE, 6, 4, -1),
+			new Word(Opcode.JMP, -1, -1, 20),
+			new Word(Opcode.STX, 3, 0, -1),
+			new Word(Opcode.JMP, -1, -1, 32),
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.LDI, 5, -1, 23),
+			new Word(Opcode.LDI, 2, -1, 0),
+			new Word(Opcode.ADD, 2, 1, -1),
+			new Word(Opcode.LDI, 0, -1, 0),
+			new Word(Opcode.ADD, 0, 1, -1),
+			new Word(Opcode.ADD, 1, 2, -1),
+			new Word(Opcode.STX, 3, 1, -1),
+			new Word(Opcode.ADDI, 3, -1, 1),
+			new Word(Opcode.SUBI, 4, -1, 1),
+			new Word(Opcode.JMPIG, 5, 4, -1),
+			new Word(Opcode.STOP, -1, -1, -1),
+		};
+
+		public Word[] p3 = new Word[] {
+			new Word(Opcode.DADO, 50, -1, 10),
+			new Word(Opcode.LDI, 0, -1, -1),
+			new Word(Opcode.LDI, 1, -1, 1),
+			new Word(Opcode.LDI, 2, -1, 50),
+			new Word(Opcode.LDX, 3, 2, -1),
+			new Word(Opcode.LDI, 4, -1, 11),
+			new Word(Opcode.LDI, 5, -1, 13),
+			new Word(Opcode.LDI, 6, -1, 25),
+			new Word(Opcode.JMPIL, 4, 3, -1),
+			new Word(Opcode.JMPIE, 5, 3, -1),
+			new Word(Opcode.JMP, -1, -1, 15),
+			new Word(Opcode.STX, 2, 0, -1),
+			new Word(Opcode.JMP, -1, -1, 24),
+			new Word(Opcode.STX, 2, 1, -1),
+			new Word(Opcode.JMP, -1, -1, 24),
+			new Word(Opcode.LDI, 4, -1, 0),
+			new Word(Opcode.ADD, 4, 3, -1),
+			new Word(Opcode.SUBI, 3, -1, 1),
+			new Word(Opcode.STX, 2, 1, -1),
+			new Word(Opcode.JMPIE, 6, 3, -1),
+			new Word(Opcode.LDI, 0, -1, 21),
+			new Word(Opcode.MULT, 4, 3, -1),
+			new Word(Opcode.STX, 2, 4, -1),
+			new Word(Opcode.SUB, 3, -1, 1),
+			new Word(Opcode.JMPIG, 0, 3, -1),
 			new Word(Opcode.STOP, -1, -1, -1),
 		};
 

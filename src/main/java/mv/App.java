@@ -11,11 +11,10 @@ public class App {
 
         vm = new VM();
 
-        // vm.test1();
-        // vm.test2();
-        // vm.test3();
-        vm.p1();
-        
+        // vm.p1();
+        // vm.p2();
+        vm.p3();
+        // vm.p4();
     }
 
     public static VM getVM() {
