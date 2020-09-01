@@ -13,6 +13,7 @@
 // A VM completa, construida pelo professor, incluindo o programa P1, tem 234 linhas.
 
 package mv;
+import java.util.Arrays;
 
 public class VM {
 
@@ -97,8 +98,9 @@ public class VM {
 							break;
 
 						case JMPIG: // If Rc > 0 Then PC ← Rs Else PC ← PC +1
-							if (reg[ir.r1] > 0) {
-								pc = reg[ir.r2];
+							if (reg[ir.r2] > 0) {
+								pc = reg[ir.r1];
+								break;
 							} else {
 								pc++;
 							};
@@ -137,11 +139,13 @@ public class VM {
 						// ----- I - Type Instructions ----- 
 
 						case ADDI: // Rd ← Rd + k
-							reg[ir.r1] = ir.r1 + ir.p;
+							reg[ir.r1] = reg[ir.r1] + ir.p;
 							pc++;
 							break;
 						
 						case SUBI: // Rd ← Rd – k
+							reg[ir.r1] = reg[ir.r1] - ir.p;
+							pc++;
 							break;
 
 						case LDI: // Rd ← k
@@ -167,17 +171,17 @@ public class VM {
 						// ----- R2 - Type Instructions ----- 
 
 						case ADD: // Rd ← Rd + Rs
-							reg[ir.r1] = ir.r1 + ir.r2;
+							reg[ir.r1] = reg[ir.r1] + reg[ir.r2];
 							pc++;
 							break;
 
 						case SUB: // Rd ← Rd - Rs
-							reg[ir.r1] = ir.r1 - ir.r2;
+							reg[ir.r1] = reg[ir.r1] - reg[ir.r2];
 							pc++;
 							break;
 
 						case MULT: // Rd ← Rd * Rs
-							reg[ir.r1] = ir.r1 * ir.r2;
+							reg[ir.r1] = reg[ir.r1] * reg[ir.r2];
 							pc++;
 							break;
 
@@ -188,6 +192,7 @@ public class VM {
 
 						case STX: // [Rd] ← Rs
 						    if (legal(ir.r1)) {
+								m[ir.r1].opc = Opcode.DADO;
 						    	m[ir.r1].p = reg[ir.r2];
 						    	pc++;
 							};
@@ -288,14 +293,14 @@ public class VM {
 	}
 
 	public void test4(){
-		Word[] p = new Programas().p4;
+		Word[] p = new Programas().test;
 		aux.carga(p, m);
 		cpu.setContext(0, tamMem - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 15);
+		aux.dump(m, 0, 11);
 	}
 
    //  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
@@ -309,6 +314,32 @@ public class VM {
 			new Word(Opcode.STD, 0, -1, 14),
 			new Word(Opcode.STOP, -1, -1, -1)
    		};
+
+		public Word[] test = new Word[] {
+			new Word(Opcode.LDI, 0, -1, 2),
+			new Word(Opcode.LDI, 1, -1, 2),
+			new Word(Opcode.MULT, 0, 1, -1),
+			new Word(Opcode.STD, 0, -1, 10),
+			new Word(Opcode.STOP, -1, -1, -1),
+		};
+
+		// public Word[] test = new Word[] {
+		// 	new Word(Opcode.LDI, 0, -1, 0),
+		// 	new Word(Opcode.STD, 0, -1, 50),
+		// 	new Word(Opcode.LDI, 1, -1, 1),
+		// 	new Word(Opcode.STD, 1, -1, 51),
+		// 	new Word(Opcode.LDI, 7, -1, 52),
+		// 	new Word(Opcode.LDI, 5, -1, 6),
+		// 	new Word(Opcode.LDI, 6, -1, 61),
+		// 	new Word(Opcode.LDI, 2, -1, 0),
+		// 	new Word(Opcode.ADD, 0, 1, -1),
+		// 	new Word(Opcode.ADD, 1, 2, -1),
+		// 	new Word(Opcode.STX, 7, 1, -1),
+		// 	new Word(Opcode.ADDI, 7, -1, 1),
+		// 	new Word(Opcode.SUB, 6, 7, -1),
+		// 	new Word(Opcode.JMPIG, 5, 6, -1),
+		// 	new Word(Opcode.STOP, -1, -1, -1),
+		// };
 
    		public Word[] p4 = new Word[] {
 			new Word(Opcode.DADO, 0, 0, 5),
@@ -327,7 +358,7 @@ public class VM {
 			new Word(Opcode.LDX, 4, 1, -1),
 			new Word(Opcode.SUB, 3, 4, -1),
 			new Word(Opcode.LDI, 4, -1, 12),
-			new Word(Opcode.JMPI, 4, 3, -1),
+			new Word(Opcode.JMPIG, 4, 3, -1),
 			new Word(Opcode.JMP, -1, -1, 4),
 			new Word(Opcode.LDX, 3, 1, -1),
 			new Word(Opcode.SWAP, 3, 4, -1),
