@@ -21,7 +21,7 @@ public class VM {
 	private enum Opcode {
 		DADO, ___,		    // se memoria nesta posicao tem um dado, usa DADO, se nao usada é NULO
 		JMP, JMPI, JMPIG, JMPIL, JMPIE, 	// J - Type Instructions 
-			JMPIM, JMPIGM, JMPILM, JMPIEM, 		
+		JMPIM, JMPIGM, JMPILM, JMPIEM, 		
 		ADDI, SUBI, LDI, LDD, STD,      	// I - Type Instructions
 		ADD, SUB, MULT, LDX, STX, 			// R2 - Type Instructions
 		SWAP, STOP;							// R1 - Type Instructions
@@ -41,6 +41,39 @@ public class VM {
     // --------------------- definicoes da CPU ---------------------------------------------------------------
 	private enum Interrupts {  // possiveis interrupcoes
 		noInterrupt, intEnderecoInvalido, intInstrucaoInvalida, intSTOP;
+	}
+
+	private class MemoryManager {
+		public int tamMemoria;
+		public int tamPag;
+		public int tamFrame;
+		public int nroFrames;
+		public boolean[] frameLivre;
+
+		public int processID;
+
+		public MemoryManager(int _tamMemoria) {
+			this.tamMemoria = _tamMemoria;
+			this.tamFrame = 16;
+			this.tamPag = 16;
+			this.nroFrames = this.tamMemoria / this.tamPag;
+			this.frameLivre = new boolean[this.nroFrames];
+			this.processID = 1;
+
+			Arrays.fill(frameLivre, true);
+		}
+
+		public int[] aloca(int nroPalavras, Word[] p, Word[] m) {
+			return 0;
+		}
+
+		public void desaloca(int[] pass) {
+
+		}
+
+		public void addProcessID() {
+			this.processID++;
+		}
 	}
 
 	private class CPU {
@@ -78,12 +111,16 @@ public class VM {
 			return true;
 		}
 
+		// SEMPRE QUE ACESSAR A MEMORIA, TRADUZIR 
+
 		public void run() { 				// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
 			while (true) { 				// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 				// FETCH
 				if (legal(pc)) { 		// pc valido
 					ir = m[pc]; 		// busca posicao da memoria apontada por pc, guarda em ir
-										// EXECUTA INSTRUCAO NO ir
+
+					// ir = m[T(pc)]	// EXECUTA INSTRUCAO NO ir
+					
 					switch (ir.opc) { 	// DADO,JMP,JMPI,JMPIG,JMPIL,JMPIE,ADDI,SUBI,ANDI,ORI,LDI,LDD,STD,ADD,SUB,MULT,LDX,STX,SWAP,STOP;
 
 
@@ -271,10 +308,17 @@ public class VM {
     public CPU cpu;    
     public Aux aux;
 
+	public MemoryManager gm;
+
     public VM(){
 		tamMem = 1024;
 		m = new Word[tamMem]; // m ee a memoria
 		for (int i=0; i<tamMem; i++) { m[i] = new Word(Opcode.___,-1,-1,-1); };
+
+		gm = new MemoryManager(tamMem);
+
+		// PASSAR TABELA DE PAGINAS PARA CPU (OLHAR AULA 03/09 EM CASO DE DUVIDAS)
+
 		cpu = new CPU(m);
 		aux = new Aux();
 	}	
@@ -300,7 +344,7 @@ public class VM {
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 32);
+		aux.dump(m, 0, 15);
 	}
 
 	public void p2(){
@@ -311,7 +355,7 @@ public class VM {
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 62);
+		aux.dump(m, 0, 15);
 	}
 
 	public void p3(){
@@ -322,7 +366,7 @@ public class VM {
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 62);
+		aux.dump(m, 0, 15);
 	}
 
 	public void p4(){
@@ -333,7 +377,7 @@ public class VM {
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 62);
+		aux.dump(m, 0, 15);
 	}
    
    	//  -------------------------------------------- programas aa disposicao para copiar na memoria (vide aux.carga)
