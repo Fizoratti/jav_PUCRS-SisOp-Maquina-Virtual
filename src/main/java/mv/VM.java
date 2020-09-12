@@ -51,8 +51,6 @@ public class VM {
 		public boolean[] frameLivre;
 		public int[] tabPaginas;
 
-		public int processID;
-
 		public MemoryManager(int _tamMemoria) {
 			this.tamMemoria = _tamMemoria;
 			this.tamFrame = 16;
@@ -61,19 +59,19 @@ public class VM {
 			this.frameLivre = new boolean[this.nroFrames];
 			this.tabPaginas = new int[tamMem / tamPag];
 
+			// hashmap tabPaginas para anotar o processID e os frames ocupados
+
 			Arrays.fill(frameLivre, true);
 		}
 
-		public int[] aloca(int nroPalavras, Word[] p, Word[] m) {
-			return 0;
+		public boolean aloca(int nroPalavras, Word[] p, Word[] m) {
+			return true;
+
+			// popular tabPaginas e frameLivre com o programa (int, int[] (processID, posicao do frame livre) / false (de acordo com a posicao do frame))
 		}
 
 		public void desaloca(int[] pass) {
 
-		}
-
-		public void addProcessID() {
-			this.processID++;
 		}
 	}
 
@@ -93,12 +91,16 @@ public class VM {
 		private Word[] m;   // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. é sempre a mesma.
 
 		private MemoryManager gm;
+
+		private int processID;
 						
 		public CPU(Word[] _m) {     // ref a MEMORIA passada na criacao da CPU
 			m = _m; 				// usa o atributo 'm' para acessar a memoria.
 			reg = new int[8]; 		// aloca o espaço dos registradores
 
 			gm = new MemoryManager(m.length);
+
+			this.processID = 1;
 		}
 
 		public void setContext(int _base, int _limite, int _pc) {  // no futuro esta funcao vai ter que ser 
@@ -116,19 +118,19 @@ public class VM {
 			return true;
 		}
 
-		public int traduzirEnderecoMemoria(int pc) {
-			return (tabPaginas[(pc / gm.tamPag)] * gm.tamFrame) + (pc % gm.tamPag)
+		public int traduzirEnderecoMemoria(int pc, int processID) {
+			return (tabPaginas.get(processID)[(pc / gm.tamPag)] * gm.tamFrame) + (pc % gm.tamPag);
 		}
 
 		// SEMPRE QUE ACESSAR A MEMORIA, TRADUZIR 
 
-		public void run() { 				// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
+		public void run(int processID) { 				// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
 			while (true) { 				// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
 				// FETCH
 				if (legal(pc)) { 		// pc valido
-					ir = m[pc]; 		// busca posicao da memoria apontada por pc, guarda em ir
+					// ir = m[pc]; 		// busca posicao da memoria apontada por pc, guarda em ir
 
-					// ir = m[traduzirEnderecoMemoria(ir.p)]	// EXECUTA INSTRUCAO NO ir
+					ir = m[traduzirEnderecoMemoria(ir.p, processID)]	// EXECUTA INSTRUCAO NO ir
 					
 					switch (ir.opc) { 	// DADO,JMP,JMPI,JMPIG,JMPIL,JMPIE,ADDI,SUBI,ANDI,ORI,LDI,LDD,STD,ADD,SUB,MULT,LDX,STX,SWAP,STOP;
 
@@ -306,14 +308,16 @@ public class VM {
 			}
 		}
 		public void carga(Word[] p, Word[] m) {
+			// para alocar programar, utilizar 2 vezes o tamanho do programa (para dados)
+			// calcular quantidade de frames que o programa precisa, verificar se o programa cabe
+			// alocar, fazer carga
+			// verificar se frame esta ocupado, 
 			for (int i = 0; i < p.length; i++) {
 				m[i].opc = p[i].opc;     m[i].r1 = p[i].r1;     m[i].r2 = p[i].r2;     m[i].p = p[i].p;
 			}
 		}
 	}
 	// -------------------------------------------  fim classes e funcoes auxiliares
-
-
 
 	// -------------------------------------------- atributos e construcao da VM
 	public int tamMem;    
@@ -343,8 +347,11 @@ public class VM {
 		System.out.println("---------------------------------- programa carregado ");
 		aux.dump(m, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
-		cpu.run();
+		cpu.run(this.processID); // passar o processID
 		aux.dump(m, 0, 15);
+		processID++;
+
+		//carrego prox programa
 	}
 
 	public void p1(){
