@@ -38,7 +38,7 @@ adequadamente a carga e o endereçamento dos processos.
 
 ## Pré Requisitos
 
-Antes de começar, você vai precisar ter instalado o [Git](https://git-scm.com) localmente no seu computador. 
+Antes de começar, você vai precisar ter instalado o [Java](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) e o [Git](https://git-scm.com) localmente no seu computador. 
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/).
 Usando a IDE de browser [GitPod](https://gitpod.io/) não é preciso instalar nada localmente no seu computador.
 
