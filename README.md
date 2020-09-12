@@ -18,9 +18,11 @@ Nossa máquina virtual (MV) tem CPU e Memória.
 ## Trabalho Prático
 
 ###### Enunciado do trabalho
-Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3351670/mod_resource/content/14/TrabalhoSO2020-2-VMv2-Fase1.pdf) que está no Moodle com o enunciado completo.
+Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3366420/mod_resource/content/3/TrabalhoSO2020-2-VMv2-Fase2-GM.pdf) que está no Moodle com o enunciado completo.
 
 ###### Primeira parte
+
+##### CPU
 
  A máquina virtual deve poder executar programas descritos com o conjunto de instruções da CPU (seção 1.1). 
  Como parte do trabalho voce deve construir alguns programas (seção 1.4), veja o programa exemplo. 
@@ -28,7 +30,11 @@ Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido nes
 
 ###### Segunda parte
 
-🚧ㅤEm breve...ㅤ🚧
+##### Gerência de Memória
+
+Construir gerente de memória para memória paginada. Deve-se demonstrar que o sistema pode carregar vários processos em memória. E depois executar cada um
+sequencialmente, do início ao fim. Deve-se provocar que processos utilizem frames não vizinhos na memória para testar
+adequadamente a carga e o endereçamento dos processos.
 
 ## Pré Requisitos
 
@@ -96,6 +102,23 @@ Conjunto de instruções.
 
 - [x] SWAP
 - [x] STOP;
+
+### Gerência de Memória
+
+- [ ] Valores Básicos
+- [ ] Testes
+
+#### Funcionalidades do Gerênte
+
+- [ ] Alocação
+- [ ] Desalocação
+- [ ] Interface
+- [ ] Estruturas internas
+
+#### Paginação
+
+- [ ] Alocação do programa
+- [ ] Execução do processo
 
 ## 🛠ㅤTecnologias
 
