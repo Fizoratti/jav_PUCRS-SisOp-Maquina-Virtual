@@ -49,6 +49,7 @@ public class VM {
 		public int tamFrame;
 		public int nroFrames;
 		public boolean[] frameLivre;
+		public int[] tabPaginas;
 
 		public int processID;
 
@@ -58,7 +59,7 @@ public class VM {
 			this.tamPag = 16;
 			this.nroFrames = this.tamMemoria / this.tamPag;
 			this.frameLivre = new boolean[this.nroFrames];
-			this.processID = 1;
+			this.tabPaginas = new int[tamMem / tamPag];
 
 			Arrays.fill(frameLivre, true);
 		}
@@ -90,10 +91,14 @@ public class VM {
 							// um processo na CPU
 
 		private Word[] m;   // CPU acessa MEMORIA, guarda referencia 'm' a ela. memoria nao muda. é sempre a mesma.
+
+		private MemoryManager gm;
 						
 		public CPU(Word[] _m) {     // ref a MEMORIA passada na criacao da CPU
 			m = _m; 				// usa o atributo 'm' para acessar a memoria.
 			reg = new int[8]; 		// aloca o espaço dos registradores
+
+			gm = new MemoryManager(m.length);
 		}
 
 		public void setContext(int _base, int _limite, int _pc) {  // no futuro esta funcao vai ter que ser 
@@ -111,6 +116,10 @@ public class VM {
 			return true;
 		}
 
+		public int traduzirEnderecoMemoria(int pc) {
+			return (tabPaginas[(pc / gm.tamPag)] * gm.tamFrame) + (pc % gm.tamPag)
+		}
+
 		// SEMPRE QUE ACESSAR A MEMORIA, TRADUZIR 
 
 		public void run() { 				// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
@@ -119,7 +128,7 @@ public class VM {
 				if (legal(pc)) { 		// pc valido
 					ir = m[pc]; 		// busca posicao da memoria apontada por pc, guarda em ir
 
-					// ir = m[T(pc)]	// EXECUTA INSTRUCAO NO ir
+					// ir = m[traduzirEnderecoMemoria(ir.p)]	// EXECUTA INSTRUCAO NO ir
 					
 					switch (ir.opc) { 	// DADO,JMP,JMPI,JMPIG,JMPIL,JMPIE,ADDI,SUBI,ANDI,ORI,LDI,LDD,STD,ADD,SUB,MULT,LDX,STX,SWAP,STOP;
 
@@ -192,13 +201,16 @@ public class VM {
 
 						case LDD: // Rd ← [A]
 							reg[ir.r1] = m[ir.p].p;
+							//reg[ir.r1] = m[traduzirEnderecoMemoria(ir.p)].p
 							pc++;
 							break;
 
 						case STD: // [A] ← Rs
 						    if (legal(ir.p)) {
 							    m[ir.p].opc = Opcode.DADO;
+								//m[traduzirEnderecoMemoria(ir.p)].opc = Opcode.DADO;
 							    m[ir.p].p = reg[ir.r1];
+								//m[traduzirEnderecoMemoria(ir.p)].p = reg[ir.r1];
 							    pc++;
 							};
 							break;
@@ -224,6 +236,7 @@ public class VM {
 
 						case LDX: // Rd ← [Rs] 
 							reg[ir.r1] = m[ir.r2].p;
+							//reg[ir.r1] = m[traduzirEnderecoMemoria(ir.p)].p;
 							pc++;
 							break;
 
@@ -314,8 +327,6 @@ public class VM {
 		tamMem = 1024;
 		m = new Word[tamMem]; // m ee a memoria
 		for (int i=0; i<tamMem; i++) { m[i] = new Word(Opcode.___,-1,-1,-1); };
-
-		gm = new MemoryManager(tamMem);
 
 		// PASSAR TABELA DE PAGINAS PARA CPU (OLHAR AULA 03/09 EM CASO DE DUVIDAS)
 
