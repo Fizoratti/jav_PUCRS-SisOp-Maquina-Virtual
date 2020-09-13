@@ -22,7 +22,7 @@ public class CPU {
 
 		public void setContext(int _base, int _limite, int _pc) {  // no futuro esta funcao vai ter que ser 
 			base = _base;                                          //expandida para setar TODO contexto de execucao,
-			limite = _limite;									   // agora,  setamos somente os registradores base,
+			limite = _limite - 1;									   // agora,  setamos somente os registradores base,
 			pc = _pc;                                              // limite e pc (deve ser zero nesta versao)
 			irpt = Interrupts.noInterrupt;                         // reset da interrupcao registrada
 		}

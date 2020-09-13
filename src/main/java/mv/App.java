@@ -14,7 +14,7 @@ public class App {
         // vm.p1();
         // vm.p2();
         // vm.p3();
-        vm.p4();
+        // vm.p4();
     }
 
     public static VM getVM() {
