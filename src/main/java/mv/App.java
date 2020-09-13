@@ -21,10 +21,8 @@ public class App {
             Programas.p3,
             Programas.p4,
         };
-    
-        vm = new VM();
-
-        log.info("[ VM ]     Setup: All set!\n");
+        
+        vm = new VM();                  log.info("[ VM ]     Setup: All set!\n");
 
         vm.init(programas);
 
@@ -33,5 +31,4 @@ public class App {
     /* END */
 
     private static Logger log = LoggerFactory.getLogger(CPU.class);
-
 }
