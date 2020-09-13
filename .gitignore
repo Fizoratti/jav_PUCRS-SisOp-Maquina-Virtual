@@ -9,6 +9,10 @@
 /.vscode
 /.settings
 /.git
+/.idea
 .classpath
 .project
 .gitpod.yml
+
+# Ignore Javadoc directory and files
+/doc
