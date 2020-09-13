@@ -32,7 +32,34 @@ public class Word {
 		return isEmpty;
 	}
 
+	// public Word copy(Word _word) {
+	// 	Word word = new Word(_word.opc, _word.r1, _word.r2, _word.p);
+	// 	return word;
+	// }
+
 	public String toString() {
 		return "[ " + opc + ", " + r1 + ", " + r2 + ", " + p + "  ] ";
+	}
+
+	public static Word copy(Word _word) {
+		Word word = new Word(_word.opc, _word.r1, _word.r2, _word.p);
+		return word;
+	}
+
+	public static boolean equals(Word _word1, Word _word2) {
+
+		boolean isOpcodeEquals = (_word1.opc == _word2.opc);
+		boolean isRegister1Equals = (_word1.r1 == _word2.r1);
+		boolean isRegister2Equals = (_word1.r2 == _word2.r2);
+		boolean isParameterEquals = (_word1.p == _word2.p);
+
+		boolean isEqual = (
+			isOpcodeEquals &&
+			isRegister1Equals &&
+			isRegister2Equals &&
+			isParameterEquals
+		);
+		
+		return isEqual;
 	}
 }
