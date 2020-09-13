@@ -16,16 +16,18 @@ package mv;
 
 public class VM {
 
-	public int tamMem;    
-    public Word[] m;     
+	public int memorySize;    
+    public Word[] memory;     
     public CPU cpu;    
     public Aux aux;
 
     public VM(){
-		tamMem = 1024;
-		m = new Word[tamMem]; // m ee a memoria
-		for (int i=0; i<tamMem; i++) { m[i] = new Word(Opcode.___,-1,-1,-1); };
-		cpu = new CPU(m);
+		memorySize = 1024;
+		memory = new Word[memorySize];
+		for (int i=0; i<memorySize; i++) { 
+			memory[i] = new Word(Opcode.___,-1,-1,-1); 
+		};
+		cpu = new CPU(memory);
 		aux = new Aux();
 	}	
 
@@ -33,57 +35,57 @@ public class VM {
 	// -------------------------------------------- teste da VM ,  veja classe de programas
 	public void test1(){
 		Programa p = Programas.p0;
-		aux.carga(p, m);
-		cpu.setContext(0, tamMem - 1, 0);
+		aux.carga(p, memory);
+		cpu.setContext(0, memorySize - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(m, 0, 15);
+		aux.dump(memory, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 15);
+		aux.dump(memory, 0, 15);
 	}
 
 	public void p1(){
 		Programa p = Programas.p1;
-		aux.carga(p, m);
-		cpu.setContext(0, tamMem - 1, 0);
+		aux.carga(p, memory);
+		cpu.setContext(0, memorySize - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(m, 0, 15);
+		aux.dump(memory, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 32);
+		aux.dump(memory, 0, 32);
 	}
 
 	public void p2(){
 		Programa p = Programas.p2;
-		aux.carga(p, m);
-		cpu.setContext(0, tamMem - 1, 0);
+		aux.carga(p, memory);
+		cpu.setContext(0, memorySize - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(m, 0, 15);
+		aux.dump(memory, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 62);
+		aux.dump(memory, 0, 62);
 	}
 
 	public void p3(){
 		Programa p = Programas.p3;
-		aux.carga(p, m);
-		cpu.setContext(0, tamMem - 1, 0);
+		aux.carga(p, memory);
+		cpu.setContext(0, memorySize - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(m, 0, 15);
+		aux.dump(memory, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 62);
+		aux.dump(memory, 0, 62);
 	}
 
 	public void p4(){
 		Programa p = Programas.p4;
-		aux.carga(p, m);
-		cpu.setContext(0, tamMem - 1, 0);
+		aux.carga(p, memory);
+		cpu.setContext(0, memorySize - 1, 0);
 		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(m, 0, 15);
+		aux.dump(memory, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(m, 0, 62);
+		aux.dump(memory, 0, 62);
 	}
    
 }
