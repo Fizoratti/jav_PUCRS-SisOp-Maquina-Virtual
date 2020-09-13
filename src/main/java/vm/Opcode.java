@@ -1,4 +1,4 @@
-package mv;
+package vm;
 
 public enum Opcode {
     DADO, ___,		    // se memoria nesta posicao tem um dado, usa DADO, se nao usada é NULO

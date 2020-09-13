@@ -1,10 +1,14 @@
-package mv;
+package programs;
 
-public class Programas {
+import vm.Program;
+import vm.Word;
+import vm.Opcode;
+
+public class Programs {
 
     // Programa Teste / Programa Mínimo
-    public static Programa p0 = new Programa(new Word[] {
-        new Word(Opcode.LDI, 0, -1, 999),
+    public static Program p0 = new Program(new Word[] {
+        new Word(Opcode.LDI, 0, -1, 999),           
         new Word(Opcode.STD, 0, -1, 10),
         new Word(Opcode.STD, 0, -1, 11),
         new Word(Opcode.STD, 0, -1, 12),
@@ -18,7 +22,7 @@ public class Programas {
         ALGORITMO: 
             10 primeiros números da sequência de Fibonacci.
     */
-    public static Programa p1 = new Programa(new Word[] {
+    public static Program p1 = new Program(new Word[] {
         new Word(Opcode.LDI, 0, -1, 0),
         new Word(Opcode.STD, 0, -1, 20),
         new Word(Opcode.LDI, 1, -1, 1),
@@ -44,7 +48,7 @@ public class Programas {
             Escrever N números da sequência de Fibonacci a partir de um valor na memória.
             Escreve números de maneira crescente.
     */
-    public static Programa p2 = new Programa(new Word[] {
+    public static Program p2 = new Program(new Word[] {
         new Word(Opcode.LDI, 0, -1, -1),
         new Word(Opcode.LDI, 1, -1, 0),
         new Word(Opcode.LDI, 2, -1, 1),
@@ -81,7 +85,7 @@ public class Programas {
         ALGORITMO:
             Escrever o fatorial de um valor pré determinado na memória.
     */
-    public static Programa p3 = new Programa(new Word[] {
+    public static Program p3 = new Program(new Word[] {
         new Word(Opcode.DADO, 50, -1, 10),
         
         new Word(Opcode.LDI, 0, -1, -1),
@@ -116,7 +120,7 @@ public class Programas {
         ALGORITMO:
             Bubble sort.
     */
-    public static Programa p4 = new Programa(new Word[] {
+    public static Program p4 = new Program(new Word[] {
         new Word(Opcode.DADO, 0, 0, 5),
         new Word(Opcode.DADO, 1, 0, 3),
         new Word(Opcode.DADO, 2, 0, 4),
@@ -144,5 +148,6 @@ public class Programas {
         new Word(Opcode.JMP, -1, -1, 4)
     });
 
-    /* end */
+    /* END */
+
 }

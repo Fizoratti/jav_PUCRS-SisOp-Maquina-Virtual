@@ -1,4 +1,4 @@
-package mv;
+package vm;
 
 public class Word {
     public Opcode opc; 	//
@@ -16,15 +16,15 @@ public class Word {
 		if(_word == null) return isEmpty;
 
 		boolean isOpcodeEmpty 		= ((_word.opc == Opcode.___) ? true : false);
-		boolean isRegistrador1Empty = ((_word.r1  == -1) 		 ? true : false);
-		boolean isRegistrador2Empty = ((_word.r2  == -1) 		 ? true : false);
-		boolean isParametroEmpty 	= ((_word.p   == -1) 		 ? true : false);
+		boolean isRegister1Empty = ((_word.r1  == -1) 		 ? true : false);
+		boolean isRegister2Empty = ((_word.r2  == -1) 		 ? true : false);
+		boolean isParameterEmpty 	= ((_word.p   == -1) 		 ? true : false);
 		
 		if(
 			!isOpcodeEmpty			||			
-			!isRegistrador1Empty	||
-			!isRegistrador2Empty	||
-			!isParametroEmpty		== true		// se qualquer um tiver algum conteúdo
+			!isRegister1Empty	||
+			!isRegister2Empty	||
+			!isParameterEmpty		== true		// se qualquer um tiver algum conteúdo
 		) {
 			isEmpty = false; 					// então a Word não está vazia
 		}
@@ -32,20 +32,21 @@ public class Word {
 		return isEmpty;
 	}
 
-	// public Word copy(Word _word) {
-	// 	Word word = new Word(_word.opc, _word.r1, _word.r2, _word.p);
-	// 	return word;
-	// }
+
 
 	public String toString() {
 		return "[ " + opc + ", " + r1 + ", " + r2 + ", " + p + "  ] ";
 	}
+
+
 
 	public static Word copy(Word _word) {
 		Word word = new Word(_word.opc, _word.r1, _word.r2, _word.p);
 		return word;
 	}
 
+
+	
 	public static boolean equals(Word _word1, Word _word2) {
 
 		boolean isOpcodeEquals = (_word1.opc == _word2.opc);

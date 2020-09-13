@@ -12,7 +12,7 @@
 // Este trabalho tem menos de 200 linhas de código.
 // A VM completa, construida pelo professor, incluindo o programa P1, tem 234 linhas.
 
-package mv;
+package vm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,13 +51,13 @@ public class VM {
 
 	/**
 	 * Inicia a máquina virtual carregando na memória e executando cada um dos programas.
-	 * @param _programas a lista de programas que a mv deve executar
+	 * @param _programs a lista de programas que a mv deve executar
 	 */
-	public void init(Programa[] _programas) {		log.info("{} Virtual Machine running . . .\n", VM.mark);
+	public void init(Program[] _programs) {			log.info("{} Virtual Machine running . . .\n", VM.mark);
 		// Para cada programa da lista...
-		for (Programa programa : _programas) {
+		for (Program program : _programs) {
 			/* Carrega na memoria... */
-			aux.carga(programa, memory);			log.info("{} Program successfully loaded", VM.mark);
+			aux.carga(program, memory);				log.info("{} Program successfully loaded", VM.mark);
 			/* Executa o programa */				
             run();									log.info("{} Program ended\n", VM.mark);
         }

@@ -1,9 +1,9 @@
-package mv;
+package vm;
 
-public class Programa {
+public class Program {
     public Word[] operations;
 
-    public Programa(Word[] _operations) {
+    public Program(Word[] _operations) {
         this.operations = _operations;
     }
 

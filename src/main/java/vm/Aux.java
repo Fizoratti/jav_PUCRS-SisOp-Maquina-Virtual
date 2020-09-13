@@ -1,4 +1,4 @@
-package mv;
+package vm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,15 +39,15 @@ public class Aux {
         }
     }
 
-    public void carga(Programa _programa, Word[] _memory) {
+    public void carga(Program _program, Word[] _memory) {
                                             log.info("{} Loading program . . .", Aux.mark);
-        Word[] programa = _programa.read();
+        Word[] program = _program.read();
 
-        for (int i = 0; i < programa.length; i++) {
-            _memory[i].opc = programa[i].opc;     
-            _memory[i].r1 = programa[i].r1;     
-            _memory[i].r2 = programa[i].r2;     
-            _memory[i].p = programa[i].p;
+        for (int i = 0; i < program.length; i++) {
+            _memory[i].opc = program[i].opc;     
+            _memory[i].r1 = program[i].r1;     
+            _memory[i].r2 = program[i].r2;     
+            _memory[i].p = program[i].p;
         }
 
     }
