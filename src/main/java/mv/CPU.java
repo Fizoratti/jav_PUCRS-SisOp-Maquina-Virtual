@@ -47,9 +47,9 @@ public class CPU {
 	 * 
 	 * @param _memory uma nova instância de memória
 	 */
-	public CPU(Word[] _memory) {     		log.info("[ CPU ]    Setup: Starting procedure...");
-		this.memory = _memory;				log.info("[ CPU ]    Setup: Acquired a memory");
-		this.reg = new int[8];				log.info("[ CPU ]    Setup: Allocated area for registers");
+	public CPU(Word[] _memory) {     		log.info("{} (Setup) Starting procedure...", CPU.mark);
+		this.memory = _memory;				log.info("{} (Setup) Acquired a memory", CPU.mark);
+		this.reg = new int[8];				log.info("{} (Setup) Allocated area for registers", CPU.mark);
 	}
 
 
@@ -62,7 +62,7 @@ public class CPU {
 	 * @param _pc
 	 */
 	public void setContext(int _base, int _limite, int _pc) {
-											log.info("[ CPU ]    Setup: Setting context...");
+											log.info("{} (Setup) Setting context...", CPU.mark);
 		this.base = _base;
 		this.limite = _limite - 1;
 		this.pc = _pc;                                   
@@ -244,13 +244,15 @@ public class CPU {
 			}
 
 			if (!(irpt == Interrupts.noInterrupt)) {
-				log.warn("[ CPU ]    : Program was interrupted by [ {} ]", irpt);
+				log.warn("{} Program was interrupted by [ {} ]", CPU.mark, irpt);
 				break;						// break sai do loop da cpu
 			}
 		}
 	}
 
-    /* END */
+	/* END */
+	
+	public static String mark = "   [ CPU ] :";
 
     private static Logger log = LoggerFactory.getLogger(CPU.class);
 

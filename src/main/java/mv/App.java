@@ -10,9 +10,7 @@ public class App {
 
     public static VM vm;
 
-    public static void main(String[] args) {
-
-        log.info("It works!\n");
+    public static void main(String[] args) {    log.info("It works!\n");
         
         Programa[] programas = {
             Programas.p0,
@@ -22,7 +20,7 @@ public class App {
             Programas.p4,
         };
         
-        vm = new VM();                  log.info("[ VM ]     Setup: All set!\n");
+        vm = new VM();                          log.info("{} (Setup) All set!\n", VM.mark);
 
         vm.init(programas);
 
