@@ -29,63 +29,23 @@ public class VM {
 		};
 		cpu = new CPU(memory);
 		aux = new Aux();
-	}	
-
-
-	// -------------------------------------------- teste da VM ,  veja classe de programas
-	public void test1(){
-		Programa p = Programas.p0;
+	}
+	
+	private void run(Programa _programa) {
+		Programa p = _programa;
 		aux.carga(p, memory);
 		cpu.setContext(0, memorySize, 0);
 		System.out.println("---------------------------------- programa carregado ");
 		aux.dump(memory, 0, 15);
 		System.out.println("---------------------------------- após execucao ");
 		cpu.run();
-		aux.dump(memory, 0, 15);
+		aux.dump(memory, 0, 63);
 	}
 
-	public void p1(){
-		Programa p = Programas.p1;
-		aux.carga(p, memory);
-		cpu.setContext(0, memorySize, 0);
-		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(memory, 0, 15);
-		System.out.println("---------------------------------- após execucao ");
-		cpu.run();
-		aux.dump(memory, 0, 32);
-	}
-
-	public void p2(){
-		Programa p = Programas.p2;
-		aux.carga(p, memory);
-		cpu.setContext(0, memorySize, 0);
-		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(memory, 0, 15);
-		System.out.println("---------------------------------- após execucao ");
-		cpu.run();
-		aux.dump(memory, 0, 62);
-	}
-
-	public void p3(){
-		Programa p = Programas.p3;
-		aux.carga(p, memory);
-		cpu.setContext(0, memorySize, 0);
-		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(memory, 0, 15);
-		System.out.println("---------------------------------- após execucao ");
-		cpu.run();
-		aux.dump(memory, 0, 62);
-	}
-
-	public void p4(){
-		Programa p = Programas.p4;
-		aux.carga(p, memory);
-		cpu.setContext(0, memorySize, 0);
-		System.out.println("---------------------------------- programa carregado ");
-		aux.dump(memory, 0, 15);
-		System.out.println("---------------------------------- após execucao ");
-		cpu.run();
-		aux.dump(memory, 0, 62);
+	public void init(Programa[] _programas) {
+		for (Programa p : _programas) {
+            run(p);
+        }
 	}
    
 }

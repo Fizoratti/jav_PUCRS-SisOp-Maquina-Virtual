@@ -8,17 +8,18 @@ public class App {
     public static VM vm;
 
     public static void main(String[] args) {
-
+        
+        Programa[] programas = {
+            Programas.p0,
+            Programas.p1,
+            Programas.p2,
+            Programas.p3,
+            Programas.p4,
+        };
+    
         vm = new VM();
 
-        // vm.p1();
-        // vm.p2();
-        // vm.p3();
-        // vm.p4();
+        vm.init(programas);
+        
     }
-
-    public static VM getVM() {
-        return vm;
-    }
-    
 }
