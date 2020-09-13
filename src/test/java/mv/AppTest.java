@@ -11,4 +11,9 @@ public class AppTest {
     //     App classUnderTest = new App();
     //     assertNotNull("app should have a virtual machine instantiated.", classUnderTest.getVM());
     // }
+
+    @Test public void testIsWordEmpty() {
+        Word emptyWordUnderTest = new Word(Opcode.___, -1, -1, -1);
+        assertTrue("Word has no content.", Word.isEmpty(emptyWordUnderTest));
+    }
 }
