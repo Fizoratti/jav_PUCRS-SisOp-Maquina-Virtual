@@ -7,8 +7,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void testAppHasAVirtualMachine() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a virtual machine instantiated.", classUnderTest.getVM());
-    }
+    // @Test public void testAppHasAVirtualMachine() {
+    //     App classUnderTest = new App();
+    //     assertNotNull("app should have a virtual machine instantiated.", classUnderTest.getVM());
+    // }
 }
