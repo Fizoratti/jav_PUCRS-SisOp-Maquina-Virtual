@@ -8,8 +8,13 @@ public class App {
     public static VM vm;
 
     public static void main(String[] args) {
+
         vm = new VM();
-		vm.test1();
+
+        // vm.p1();
+        // vm.p2();
+        // vm.p3();
+        vm.p4();
     }
 
     public static VM getVM() {

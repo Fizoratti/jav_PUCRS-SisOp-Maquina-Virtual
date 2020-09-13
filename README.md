@@ -18,7 +18,7 @@ Nossa máquina virtual (MV) tem CPU e Memória.
 ## Trabalho Prático
 
 ###### Enunciado do trabalho
-Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/2996451/mod_resource/content/11/TrabalhoSO2020-2-VM-Fase1.pdf) que está no Moodle com o enunciado completo.
+Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido neste documento, em linguagem de alto nível de sua escolha. [Link para o pdf](https://moodle.pucrs.br/pluginfile.php/3351670/mod_resource/content/14/TrabalhoSO2020-2-VMv2-Fase1.pdf) que está no Moodle com o enunciado completo.
 
 ###### Primeira parte
 
@@ -28,7 +28,7 @@ Em grupos de até 4 alunos. Construir uma máquina virtual conforme definido nes
 
 ###### Segunda parte
 
-🚧ㅤ*Em breve...*ㅤ🚧
+🚧ㅤEm breve...ㅤ🚧
 
 ## Pré Requisitos
 
@@ -53,7 +53,7 @@ $ gradle run
 
 ## 🌿ㅤBranches
 
-- ```master```: Branch com uma build do projeto com código que executa sem erros.
+- ```master```: Branch com a última build do projeto em que o código que executa sem erros.
 - ```develop```: Branch para desenvolvimento de features.
 
 ## 🚀ㅤFeatures
@@ -64,34 +64,38 @@ Conjunto de instruções.
 
 #### J - Type Instructions
 
-- [ ] JMP
-- [ ] JMPI
-- [ ] JMPIG
-- [ ] JMPIL
-- [ ] JMPIE
+- [x] JMP
+- [x] JMPI
+- [x] JMPIG
+- [x] JMPIL
+- [x] JMPIE
+- [ ] JMPIMㅤ```new```
+- [ ] JMPIGMㅤ```new```
+- [ ] JMPILMㅤ```new```
+- [ ] JMPIEMㅤ```new```
 
 #### I - Type Instructions
 
-- [ ] ADDI
+- [x] ADDI
 - [ ] SUBI
-- [ ] ANDI
-- [ ] ORI
+- [x] ~ANDI~
+- [x] ~ORI~
 - [x] LDI
-- [ ] LDD
+- [x] LDD
 - [x] STD
 
 #### R2 - Type Instructions
 
-- [ ] ADD
-- [ ] SUB
-- [ ] MULT
-- [ ] LDX
-- [ ] STX
+- [x] ADD
+- [x] SUB
+- [x] MULT
+- [x] LDX
+- [x] STX
 
 #### R1 - Type Instructions
 
-- [ ] SWAP
-- [ ] STOP;
+- [x] SWAP
+- [x] STOP;
 
 ## 🛠ㅤTecnologias
 
