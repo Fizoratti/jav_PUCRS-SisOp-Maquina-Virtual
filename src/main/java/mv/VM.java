@@ -14,6 +14,9 @@
 
 package mv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class VM {
 
 	public int memorySize;    
@@ -21,27 +24,33 @@ public class VM {
     public CPU cpu;    
 	public Aux aux;
 
-    public VM(){
-		memorySize = 1024;
-		memory = new Word[memorySize];
-		initMemory(memory);
-		System.out.println("Memory memory[0]: " + memory[0]);
-		System.out.println("Memory memory[1]: " + memory[1]);
-		System.out.println("Memory memory[2]: " + memory[2]);
-		System.out.println("Memory memory[3]: " + memory[3]);
-		cpu = new CPU(memory);
-		aux = new Aux();
-		aux.dump(memory);
+    public VM(){									log.info("[ VM ]     Setup: Starting procedure . . .");
+		memorySize = 128;							
+		memory = new Word[memorySize];				log.info("[ Memory ] Setup: Starting new memory with size of {}", memorySize);
+
+		initMemory(memory);							log.info("[ Memory ] Setup: Memory is set");
+
+													log.debug("Memory value in memory[0]: {}", memory[0]);
+													log.debug("Memory value in memory[1]: {}", memory[1]);
+													log.debug("Memory value in memory[2]: {}", memory[2]);
+													log.debug("Memory value in memory[3]: {}", memory[3]);
+
+		cpu = new CPU(memory);						
+		cpu.setContext(0, memorySize, 0);			log.info("[ VM ]     Setup: Context of CPU is set");
+													log.info("[ VM ]     Setup: CPU is set");
+
+		aux = new Aux();							log.info("[ VM ]     Setup: Aux is set");
+		// aux.dump(memory);
 	}
 	
 
 	/**
 	 * Executa o conteúdo presente na memória (instruções e dados de um programa).
 	 */
-	private void run() {
-		aux.dump(memory);
+	private void run() {							log.info("[ VM ]     : Program is running . . .");
+		// aux.dump(memory);
 		cpu.run();
-		aux.dump(memory);
+		// aux.dump(memory);
 	}
 
 
@@ -49,14 +58,13 @@ public class VM {
 	 * Inicia a máquina virtual carregando na memória e executando cada um dos programas.
 	 * @param _programas a lista de programas que a mv deve executar
 	 */
-	public void init(Programa[] _programas) {
-		cpu.setContext(0, memorySize, 0);
+	public void init(Programa[] _programas) {		log.info("[ VM ]     : Virtual Machine running . . .\n");
 		// Para cada programa da lista...
 		for (Programa programa : _programas) {
-			// Carrega na memoria...
-			aux.carga(programa, memory);
-			// Executa o programa
-            run();
+			/* Carrega na memoria... */
+			aux.carga(programa, memory);			log.info("[ VM ]     : Program successfully loaded");
+			/* Executa o programa */				
+            run();									log.info("[ VM ]     : Program ended\n");
         }
 	}
 	
@@ -67,7 +75,7 @@ public class VM {
 	 * Inicia uma memória do zero preenchendo valores nulos em cada endereço.
 	 * @param _memory instância de memória que ainda não possui conteúdo
 	 */
-	private void initMemory(Word[] _memory) {
+	private void initMemory(Word[] _memory) {		log.info("[ Memory ] Setup: Assembling new memory...");
 		// Caso a memória não tenha conteúdo
 		if(isMemoryEmpty(_memory))
 			// Preenche a memória com conteúdo nulo
@@ -81,7 +89,7 @@ public class VM {
 	 * @param _word	a palavra que será escrita em todos os endereços da memória
 	 */
 	private void fillMemory(Word[] _memory, Word _word) {
-		// Para cada endereço na memória...
+		/* Para cada endereço na memória... */		log.info("[ Memory ] Setup: Filling memory addresses...");
 		for(int i = 0; i < _memory.length; i++) {
 			// Escrever a palavra		
 			_memory[i] = _word; 
@@ -90,7 +98,7 @@ public class VM {
    
 
 
-	private boolean isMemoryEmpty(Word[] _memory) {
+	private boolean isMemoryEmpty(Word[] _memory) {	log.info("[ Memory ] Setup: Checking if memory is empty...");
 		boolean isMemoryEmpty = true;
 
 		// for (Word word : _memory) {
@@ -103,5 +111,8 @@ public class VM {
 		return isMemoryEmpty;
 	}
 
+    /* END */
+
+    private static Logger log = LoggerFactory.getLogger(CPU.class);
 
 }

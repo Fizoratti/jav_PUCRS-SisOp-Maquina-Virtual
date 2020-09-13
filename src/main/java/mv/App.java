@@ -3,11 +3,16 @@
  */
 package mv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class App {
 
     public static VM vm;
 
     public static void main(String[] args) {
+
+        log.info("It works!\n");
         
         Programa[] programas = {
             Programas.p0,
@@ -19,7 +24,14 @@ public class App {
     
         vm = new VM();
 
+        log.info("[ VM ]     Setup: All set!\n");
+
         vm.init(programas);
-        
+
     }
+
+    /* END */
+
+    private static Logger log = LoggerFactory.getLogger(CPU.class);
+
 }

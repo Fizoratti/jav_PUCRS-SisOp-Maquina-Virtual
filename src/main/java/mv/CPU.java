@@ -1,58 +1,104 @@
 package mv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CPU {
-	
-	private int pc; 			// ... composto de program counter,
-	private Word ir; 			// instruction register,
-	private int[] reg;       	// registradores da CPU
-	private Word[] memory;		// CPU acessa MEMORIA, guarda referencia 'memory' a ela. memoria nao muda. é sempre a mesma.
-	private Interrupts irpt; 	// durante instrucao, interrupcao pode ser sinalizada
-	private int base;   		// base e limite de acesso na memoria
-	private int limite; // por enquanto toda memoria pode ser acessada pelo processo rodando
-						// ATE AQUI: contexto da CPU - tudo que precisa sobre o estado de um processo
-						// para executar
-						// nas proximas versoes isto pode modificar, e vai permitir salvar e restaurar
-						// um processo na CPU
 
-				
-	
+	/**
+	 * program counter
+	 */
+	private int pc;
 
-	public CPU(Word[] _memory) {     		// ref a MEMORIA passada na criacao da CPU
-		this.memory = _memory; 				// usa o atributo 'memory' para acessar a memoria.
-		this.reg = new int[8]; 				// aloca o espaço dos registradores
+	/**
+	 * instruction register
+	 */
+	private Word ir;
+
+	/**
+	 * registradores da CPU
+	 */
+	private int[] reg;
+
+	/**
+	 * CPU acessa MEMORIA, guarda referencia 'memory' a ela. memoria nao muda. é sempre a mesma.
+	 */
+	private Word[] memory;
+
+	/**
+	 * Durante a execução de uma instrucao, uma interrupcao pode ser sinalizada
+	 */
+	private Interrupts irpt;
+
+	/**
+	 * base e limite de acesso na memoria
+	 */
+	private int base;
+
+	/**
+	 * por enquanto toda memoria pode ser acessada pelo processo rodando ATE AQUI:
+	 * contexto da CPU - tudo que precisa sobre o estado de um processo para executar
+	 * nas proximas versoes isto pode modificar, e vai permitir salvar e restaurar um processo na CPU
+	 */
+	private int limite;
+
+	
+	/**
+	 * 
+	 * @param _memory uma nova instância de memória
+	 */
+	public CPU(Word[] _memory) {     		log.info("[ CPU ]    Setup: Starting procedure...");
+		this.memory = _memory;				log.info("[ CPU ]    Setup: Acquired a memory");
+		this.reg = new int[8];				log.info("[ CPU ]    Setup: Allocated area for registers");
+	}
+
+
+	/**
+	 * no futuro esta funcao vai ter que ser expandida para setar contexto de execucao,
+	 * agora,  setamos somente os registradores base, limite e pc (deve ser zero nesta 
+	 * versao) reset da interrupcao registrada.
+	 * @param _base
+	 * @param _limite
+	 * @param _pc
+	 */
+	public void setContext(int _base, int _limite, int _pc) {
+											log.info("[ CPU ]    Setup: Setting context...");
+		this.base = _base;
+		this.limite = _limite - 1;
+		this.pc = _pc;                                   
+		this.irpt = Interrupts.noInterrupt;                         
 	}
 
 
 
-	public void setContext(int _base, int _limite, int _pc) {		// no futuro esta funcao vai ter que ser 
-		this.base = _base;                                          // expandida para setar TODO contexto de execucao,
-		this.limite = _limite - 1;									// agora,  setamos somente os registradores base,
-		this.pc = _pc;                                              // limite e pc (deve ser zero nesta versao)
-		this.irpt = Interrupts.noInterrupt;                         // reset da interrupcao registrada
-		System.out.println("---------------------------------- programa carregado ");
-	}
+	/**
+	 * Todo acesso a memoria tem que ser verificado
+	 * @param e posição (int) de um endereço na memória
+	 * @return 
+	 */
+	private boolean isLegal(int e) {
+		boolean isLegal = true;
 
-
-
-	private boolean isLegal(int e) {                             // todo acesso a memoria tem que ser verificado
 		if ((e < base) || (e > limite)) {                      //  valida se endereco 'e' na memoria ee posicao legal
 			irpt = Interrupts.intEnderecoInvalido;             //  caso contrario ja liga interrupcao
-			return false;
+			isLegal = false;
 		};
-		return true;
+
+		return isLegal;
 	}
 
 
 
-	public void run() { 				// execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
-		System.out.println("---------------------------------- após execucao ");
-		while (true) { 					// ciclo de instrucoes. acaba cfe instrucao, veja cada caso.
+	/**
+	 * Execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
+	 */
+	public void run() {						log.debug("CPU is running...");
+		while (true) { 					
 			// FETCH
-			if (isLegal(pc)) { 			// pc valido
-				ir = memory[pc]; 		// busca posicao da memoria apontada por pc, guarda em ir
-										// EXECUTA INSTRUCAO NO ir
-				switch (ir.opc) { 		// DADO,JMP,JMPI,JMPIG,JMPIL,JMPIE,ADDI,SUBI,ANDI,ORI,LDI,LDD,STD,ADD,SUB,MULT,LDX,STX,SWAP,STOP;
-
+			if (isLegal(pc)) { 				log.debug("CPU: Program counter is legal");
+				ir = memory[pc]; 			log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+											log.debug("CPU: Running instruction {}", ir.opc);
+				switch (ir.opc) {
 
 					// ----- J - Type Instructions ----- 
 
@@ -197,12 +243,15 @@ public class CPU {
 				}
 			}
 
-			// verifica int - agora simplesmente para programa em qualquer caso
 			if (!(irpt == Interrupts.noInterrupt)) {
-				System.out.print("Interrupcao ");
-				System.out.println(irpt);
-				break; // break sai do loop da cpu
+				log.warn("[ CPU ]    : Program was interrupted by [ {} ]", irpt);
+				break;						// break sai do loop da cpu
 			}
 		}
 	}
+
+    /* END */
+
+    private static Logger log = LoggerFactory.getLogger(CPU.class);
+
 }
