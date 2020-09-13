@@ -24,22 +24,17 @@ public class VM {
     public CPU cpu;    
 	public Aux aux;
 
-    public VM(){									log.info("{} (Setup) Starting procedure . . .", VM.mark);
+	public VM(){									log.info("{} (Setup) Starting procedure . . .", VM.mark);
+	
+		aux = new Aux();							log.info("{} (Setup) Aux is set", VM.mark);
+
 		memorySize = 128;							
 		memory = new Word[memorySize];				log.info("{} (Setup) Starting new memory with size of {}", Aux.mark, memorySize);
-
 		initMemory(memory);							log.info("{} (Setup) Memory is set", Aux.mark);
 
-													log.debug("Memory value in memory[0]: {}", memory[0]);
-													log.debug("Memory value in memory[1]: {}", memory[1]);
-													log.debug("Memory value in memory[2]: {}", memory[2]);
-													log.debug("Memory value in memory[3]: {}", memory[3]);
-
 		cpu = new CPU(memory);						
-		cpu.setContext(0, memorySize, 0);			log.info("{} (Setup) Context of CPU is set", VM.mark);
-													log.info("{} (Setup) CPU is set", VM.mark);
-
-		aux = new Aux();							log.info("{} (Setup) Aux is set", VM.mark);
+		cpu.setContext(0, memorySize, 0);			log.info("{} (Setup) Context of CPU is set", CPU.mark);
+													log.info("{} (Setup) CPU is set", CPU.mark);
 		// aux.dump(memory);
 	}
 	
@@ -77,9 +72,11 @@ public class VM {
 	 */
 	private void initMemory(Word[] _memory) {		log.info("{} (Setup) Assembling new memory...", Aux.mark);
 		// Caso a memória não tenha conteúdo
-		if(isMemoryEmpty(_memory))
+		if(isMemoryEmpty(_memory)) {
 			// Preenche a memória com conteúdo nulo
-			fillMemory(memory, new Word(Opcode.___,-1,-1,-1));
+			Word blankWord = new Word(Opcode.___,-1,-1,-1);
+			fillMemory(memory, blankWord);
+		}
 	}
 
 
@@ -89,24 +86,40 @@ public class VM {
 	 * @param _word	a palavra que será escrita em todos os endereços da memória
 	 */
 	private void fillMemory(Word[] _memory, Word _word) {
-		/* Para cada endereço na memória... */		log.info("{} (Setup) Filling memory addresses...", Aux.mark);
+													log.info("{} (Setup) Filling memory addresses...", Aux.mark);
+		/* Para cada endereço na memória... */
 		for(int i = 0; i < _memory.length; i++) {
-			// Escrever a palavra		
-			_memory[i] = _word; 
+			Word blankWord = Word.copy(_word);
+			/* Escrever a palavra em branco (sem conteúdo) */
+			_memory[i] = blankWord; 
 		};
 	}
    
 
 
+	private boolean isMemoryBlank(Word[] _memory) {	log.info("{} (Setup) Checking if memory is blank...", Aux.mark);
+		boolean isMemoryBlank = false;
+
+		for (int i = 0; i < _memory.length; i++) {
+			/* Se o endereço da memória for 'blank' */
+			if(Word.equals(_memory[i], new Word(Opcode.___,-1,-1,-1))) {
+				isMemoryBlank = true;				log.debug("{} (Setup) Memory is blank", Aux.mark);
+				break;
+			}
+		}
+		
+		return isMemoryBlank;
+	}
+
 	private boolean isMemoryEmpty(Word[] _memory) {	log.info("{} (Setup) Checking if memory is empty...", Aux.mark);
 		boolean isMemoryEmpty = true;
 
-		// for (Word word : _memory) {
-		// 	if(word != null) {
-		// 		isMemoryEmpty = false;
-		// 		break;
-		// 	}
-		// }
+		for (int i = 0; i < _memory.length; i++) {
+			if(_memory[i] != null) {
+				isMemoryEmpty = false;				log.debug("{} (Setup) Memory is empty", Aux.mark);
+				break;
+			}
+		}
 		
 		return isMemoryEmpty;
 	}
