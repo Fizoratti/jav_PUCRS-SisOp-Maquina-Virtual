@@ -85,18 +85,19 @@ public class CPU {
 		return isLegal;
 	}
 
-	public int traduzirEnderecoMemoria(int pc, int processID) {
-		return (gm.tabPaginas.get(processID)[(pc / gm.tamPag)] * gm.tamFrame) + (pc % gm.tamPag);
-	}
+	// public int traduzirEnderecoMemoria(int pc, int processID) {
+	// 	return (gm.tabPaginas.get(processID)[(pc / gm.tamPag)] * gm.tamFrame) + (pc % gm.tamPag);
+	// }
 
 	/**
 	 * Execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
 	 */
-	public void run(int processID) {						log.debug("CPU is running...");
+	public void run() {						log.debug("CPU is running...");
 		while (true) {
 			if (isLegal(programCounter)) { 				log.debug("CPU: Program counter is legal");
-				instructionRegister = memory[traduzirEnderecoMemoria(ir.p, processID)]; 			log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
-											log.debug("CPU: Running instruction {}", instructionRegister.opc);
+				// instructionRegister = memory[traduzirEnderecoMemoria(ir.p, processID)]; 			log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+				instructionRegister = memory[programCounter]; 			log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+														log.debug("CPU: Running instruction {}", instructionRegister.opc);
 				switch (instructionRegister.opc) {
 
 					// ----- J - Type Instructions ----- 

@@ -60,10 +60,11 @@ public class VM {
 			aux.carga(program, memory);				log.info("{} Program successfully loaded", VM.mark);
 			
 			/* Executa o programa */				
-            run(program.processID);									log.info("{} Program ended\n", VM.mark);
+            // run(program.processID);									log.info("{} Program ended\n", VM.mark);
+            run();									log.info("{} Program ended\n", VM.mark);
 
 			/* Sempre que der carga na memoria, aumentar o processID */
-			program.processID++;
+			// program.processID++;
         }
 	}
 	
