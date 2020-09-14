@@ -58,8 +58,12 @@ public class VM {
 		for (Program program : _programs) {
 			/* Carrega na memoria... */
 			aux.carga(program, memory);				log.info("{} Program successfully loaded", VM.mark);
+			
 			/* Executa o programa */				
-            run();									log.info("{} Program ended\n", VM.mark);
+            run(program.processID);									log.info("{} Program ended\n", VM.mark);
+
+			/* Sempre que der carga na memoria, aumentar o processID */
+			program.processID++;
         }
 	}
 	

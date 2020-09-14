@@ -50,6 +50,10 @@ public class Aux {
             _memory[i].p = program[i].p;
         }
 
+        // para alocar programar, utilizar 2 vezes o tamanho do programa (para dados)
+        // calcular quantidade de frames que o programa precisa, verificar se o programa cabe
+        // alocar, fazer carga
+        // verificar se frame esta ocupado, 
     }
 
     /* END */
