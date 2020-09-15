@@ -1,9 +1,9 @@
-package vm;
+package so;
 
 import java.util.*;
 
 public class MemoryManager {
-    public int tamMemoria;
+    public final int MEMORY_SIZE;
     public int tamPag;
     public int tamFrame;
     public int nroFrames;
@@ -12,10 +12,10 @@ public class MemoryManager {
     public Map<Integer, ArrayList<Integer>> tabPaginas;
 
     public MemoryManager(int _tamMemoria) {
-        this.tamMemoria = _tamMemoria;
+        this.MEMORY_SIZE = _tamMemoria;
         this.tamFrame = 16;
         this.tamPag = 16;
-        this.nroFrames = this.tamMemoria / this.tamPag;
+        this.nroFrames = this.MEMORY_SIZE / this.tamPag;
         this.frameLivre = new boolean[this.nroFrames];
 
         this.tabPaginas = new HashMap<Integer, ArrayList<Integer>>();
@@ -23,13 +23,13 @@ public class MemoryManager {
         Arrays.fill(frameLivre, true);
     }
 
-    public boolean aloca() {
+    public boolean allocate() {
         return true;
 
         // popular tabPaginas e frameLivre com o programa (int, int[] (processID, posicao do frame livre) / false (de acordo com a posicao do frame))
     }
 
-    public void desaloca(int[] pass) {
+    public void unallocate(int[] pass) {
 
     }
 }

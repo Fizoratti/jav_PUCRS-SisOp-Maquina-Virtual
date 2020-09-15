@@ -57,7 +57,7 @@ public class VM {
 
 
 	public void stop() {							log.info("{} "+Tag.red("Virtual Machine stopped")+"\n", Tag.VM);
-
+		
 	}
 
 

@@ -3,6 +3,8 @@ package vm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import so.MemoryManager;
+
 public class CPU {
 
 	private int programCounter;
@@ -28,7 +30,7 @@ public class CPU {
 	private Interrupts interruption;
 
 	/**
-	 * base e limite de acesso na memoria
+	 * base de acesso na memoria
 	 */
 	private int base;
 

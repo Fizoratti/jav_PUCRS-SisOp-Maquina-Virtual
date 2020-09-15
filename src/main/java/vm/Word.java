@@ -16,14 +16,14 @@ public class Word {
 		if(_word == null) return isEmpty;
 
 		boolean isOpcodeEmpty 		= ((_word.opc == Opcode.___) ? true : false);
-		boolean isRegister1Empty = ((_word.r1  == -1) 		 ? true : false);
-		boolean isRegister2Empty = ((_word.r2  == -1) 		 ? true : false);
+		boolean isRegister1Empty 	= ((_word.r1  == -1) 		 ? true : false);
+		boolean isRegister2Empty 	= ((_word.r2  == -1) 		 ? true : false);
 		boolean isParameterEmpty 	= ((_word.p   == -1) 		 ? true : false);
 		
 		if(
 			!isOpcodeEmpty			||			
-			!isRegister1Empty	||
-			!isRegister2Empty	||
+			!isRegister1Empty		||
+			!isRegister2Empty		||
 			!isParameterEmpty		== true		// se qualquer um tiver algum conteúdo
 		) {
 			isEmpty = false; 					// então a Word não está vazia
@@ -49,10 +49,10 @@ public class Word {
 	
 	public static boolean equals(Word _word1, Word _word2) {
 
-		boolean isOpcodeEquals = (_word1.opc == _word2.opc);
-		boolean isRegister1Equals = (_word1.r1 == _word2.r1);
-		boolean isRegister2Equals = (_word1.r2 == _word2.r2);
-		boolean isParameterEquals = (_word1.p == _word2.p);
+		boolean isOpcodeEquals		= (_word1.opc == _word2.opc);
+		boolean isRegister1Equals 	= (_word1.r1 == _word2.r1);
+		boolean isRegister2Equals 	= (_word1.r2 == _word2.r2);
+		boolean isParameterEquals 	= (_word1.p == _word2.p);
 
 		boolean isEqual = (
 			isOpcodeEquals &&
