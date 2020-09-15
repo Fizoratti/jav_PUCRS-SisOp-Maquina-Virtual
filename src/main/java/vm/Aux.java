@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 
 public class Aux {
 
-    public void dump(Word _word) {          log.info("{} Dumping memory . . .", Aux.mark);
+    public void dump(Word _word) {          log.info("{} Dumping memory . . .", Tag.MEMORY);
         System.out.println(_word.toString());
     }
 
-    public void dump(Word[] _memory) {      log.info("{} Dumping memory . . .", Aux.mark);
+    public void dump(Word[] _memory) {      log.info("{} Dumping memory . . .", Tag.MEMORY);
                                             log.debug("Memory value in memory[0]: {}", _memory[0]);
                                             log.debug("Memory value in memory[1]: {}", _memory[1]);
                                             log.debug("Memory value in memory[2]: {}", _memory[2]);
@@ -33,14 +33,14 @@ public class Aux {
     }
 
     public void dump(Word[] m, int ini, int fim) {
-                                            log.info("{} Dumping memory . . .", Aux.mark);
+                                            log.info("{} Dumping memory . . .", Tag.MEMORY);
         for (int i = ini; i < fim; i++) {
             System.out.print(i); System.out.print(":  ");  dump(m[i]);
         }
     }
 
     public void carga(Program _program, Word[] _memory) {
-                                            log.info("{} Loading program . . .", Aux.mark);
+                                            log.info("{} Loading program . . .", Tag.MEMORY);
         Word[] program = _program.read();
 
         for (int i = 0; i < program.length; i++) {
@@ -57,8 +57,6 @@ public class Aux {
     }
 
     /* END */
-
-    public static String mark = "[ Memory ] :";
 
     private static Logger log = LoggerFactory.getLogger(CPU.class);
 

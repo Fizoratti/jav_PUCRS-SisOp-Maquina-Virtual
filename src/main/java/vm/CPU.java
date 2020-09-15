@@ -45,9 +45,9 @@ public class CPU {
 	 * 
 	 * @param _memory uma nova instância de memória
 	 */
-	public CPU(Word[] _memory) {     		log.info("{} (Setup) Starting procedure...", CPU.mark);
-		memory = _memory;				log.info("{} (Setup) Acquired a memory", CPU.mark);
-		reg = new int[8];				log.info("{} (Setup) Allocated area for registers", CPU.mark);
+	public CPU(Word[] _memory) {     		log.info("{} {} Starting procedure...", Tag.CPU, Tag.SETUP);
+		memory = _memory;					log.info("{} {} Acquired a memory", Tag.CPU, Tag.SETUP);
+		reg = new int[8];					log.info("{} {} Allocated area for registers", Tag.CPU, Tag.SETUP);
 	}
 
 
@@ -60,7 +60,7 @@ public class CPU {
 	 * @param _pc
 	 */
 	public void setContext(int _base, int _limite, int _pc) {
-											log.info("{} (Setup) Setting context...", CPU.mark);
+											log.info("{} {} Setting context...", Tag.CPU, Tag.SETUP);
 		base = _base;
 		limit = _limite - 1;
 		programCounter = _pc;                                   
@@ -94,10 +94,13 @@ public class CPU {
 	 */
 	public void run() {						log.debug("CPU is running...");
 		while (true) {
-			if (isLegal(programCounter)) { 				log.debug("CPU: Program counter is legal");
-				// instructionRegister = memory[traduzirEnderecoMemoria(ir.p, processID)]; 			log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
-				instructionRegister = memory[programCounter]; 			log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
-														log.debug("CPU: Running instruction {}", instructionRegister.opc);
+			if (isLegal(programCounter)) { 	
+											log.debug("CPU: Program counter is legal");
+				// instructionRegister = memory[traduzirEnderecoMemoria(ir.p, processID)]; 			
+											log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+				instructionRegister = memory[programCounter]; 			
+											log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+											log.debug("CPU: Running instruction {}", instructionRegister.opc);
 				switch (instructionRegister.opc) {
 
 					// ----- J - Type Instructions ----- 
@@ -244,15 +247,13 @@ public class CPU {
 			}
 
 			if (!(interruption == Interrupts.None)) {
-				log.warn("{} Program was interrupted by [ {} ]", CPU.mark, interruption);
+				log.warn("{} Program was interrupted by [ {} ]", Tag.CPU, interruption);
 				break;						// break sai do loop da cpu
 			}
 		}
 	}
 
 	/* END */
-	
-	public static String mark = "   [ CPU ] :";
 
     private static Logger log = LoggerFactory.getLogger(CPU.class);
 

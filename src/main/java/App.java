@@ -9,9 +9,10 @@ import programs.Programs;
 import vm.Program;
 import vm.VM;
 import vm.CPU;
+import vm.Tag;
 
 public class App {
-    public static void main(String[] args) {    log.info("It works!\n");
+    public static void main(String[] args) {    log.info(Tag.green("It works!")+"\n");
 
         Program[] programas = {
             Programs.p0,
@@ -21,9 +22,10 @@ public class App {
             Programs.p4,
         };
         
-        VM vm = new VM();                       log.info("{} (Setup) All set!\n", VM.mark);
+        VM vm = new VM();                       log.info("{} {} "+Tag.green("VM is set!")+"\n", Tag.VM, Tag.SETUP);
 
-        vm.init(programas);
+        vm.init(programas);                     
+        vm.stop();
 
     }
 
