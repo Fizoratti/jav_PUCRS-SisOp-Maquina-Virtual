@@ -6,6 +6,8 @@ public class Word {
 	public int r2; 		// indice do segundo registrador da operacao (Rc ou Rs cfe operacao)
 	public int p; 		// parametro para instrucao (k ou A cfe operacao), ou o dado, se opcode = DADO
 
+	public static final Word BLANK = new Word(Opcode.___,-1,-1,-1);
+
 	public Word(Opcode _opc, int _r1, int _r2, int _p) {  
 		opc = _opc;   r1 = _r1;    r2 = _r2;	p = _p;
 	}

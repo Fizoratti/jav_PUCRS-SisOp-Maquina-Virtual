@@ -5,22 +5,31 @@ import org.slf4j.LoggerFactory;
 
 public class VM {
 
-	public int memorySize;    
-    public Word[] memory;     
-    public CPU cpu;    
-	public Aux aux;
+	// public int memorySize;    
+	// public Word[] memory;
+	public Memory memory;
+    public CPU cpu; 
 
-	public VM(){									log.info("{} {} Starting procedure . . .", Tag.VM, Tag.SETUP);
+	public VM() {									log.info("{} {} Starting procedure . . .", Tag.VM, Tag.SETUP);
 	
-		aux = new Aux();							log.info("{} {} "+Tag.green("Aux is set"), Tag.VM, Tag.SETUP);
+		// aux = new Aux();							log.info("{} {} "+Tag.green("Aux is set"), Tag.VM, Tag.SETUP);
 
-		memorySize = 128;							
-		memory = new Word[memorySize];				log.info("{} {} Starting new memory with size of {}", Tag.MEMORY, Tag.SETUP, memorySize);
-		initMemory(memory);							log.info("{} {} "+Tag.green("Memory is set"), Tag.MEMORY, Tag.SETUP);
+		// Experimentando
+		Memory.newMemory(1024);
+		memory = Memory.get();
+		initMemory(memory);
 
 		cpu = new CPU(memory);						
-		cpu.setContext(0, memorySize, 0);			log.info("{} {} Context of CPU is set", Tag.CPU, Tag.SETUP);
+		cpu.setContext(0, memory.size, 0);			log.info("{} {} Context of CPU is set", Tag.CPU, Tag.SETUP);
 													log.info("{} {} "+Tag.green("CPU is set"), Tag.CPU, Tag.SETUP);
+		
+		// memorySize = 128;							
+		// memory = new Word[memorySize];				log.info("{} {} Starting new memory with size of {}", Tag.MEMORY, Tag.SETUP, memorySize);
+		// initMemory(memory);							log.info("{} {} "+Tag.green("Memory is set"), Tag.MEMORY, Tag.SETUP);
+		
+		// cpu.setContext(0, memorySize, 0);			log.info("{} {} Context of CPU is set", Tag.CPU, Tag.SETUP);
+		// cpu = new CPU(memory);						
+
 		// aux.dump(memory);
 	}
 	
@@ -43,7 +52,7 @@ public class VM {
 		// Para cada programa da lista...
 		for (Program program : _programs) {
 			/* Carrega na memoria... */
-			aux.carga(program, memory);				log.info("{} "+Tag.green("Program successfully loaded"), Tag.VM);
+			Aux.carga(program, memory);				log.info("{} "+Tag.green("Program successfully loaded"), Tag.VM);
 			
 			/* Executa o programa */				
             // run(program.processID);									log.info("{} Program ended\n", Tag.VM);
@@ -62,16 +71,21 @@ public class VM {
 
 
 
-	/**
-	 * Inicia uma memória do zero preenchendo valores nulos em cada endereço.
-	 * @param _memory instância de memória que ainda não possui conteúdo
-	 */
-	private void initMemory(Word[] _memory) {		log.info("{} {} Assembling new memory...", Tag.MEMORY, Tag.SETUP);
-		// Caso a memória não tenha conteúdo
+	// /**
+	//  * Inicia uma memória do zero preenchendo valores nulos em cada endereço.
+	//  * @param _memory instância de memória que ainda não possui conteúdo
+	//  */
+	// private void initMemory(Word[] _memory) {		log.info("{} {} Assembling new memory...", Tag.MEMORY, Tag.SETUP);
+	// 	// Caso a memória não tenha conteúdo
+	// 	if(isMemoryEmpty(_memory)) {
+	// 		// Preenche a memória com conteúdo nulo
+	// 		fillMemory(memory, Word.BLANK);
+	// 	}
+	// }
+
+	private void initMemory(Memory _memory) {
 		if(isMemoryEmpty(_memory)) {
-			// Preenche a memória com conteúdo nulo
-			Word blankWord = new Word(Opcode.___,-1,-1,-1);
-			fillMemory(memory, blankWord);
+			fillMemory(_memory, Word.BLANK);
 		}
 	}
 
@@ -81,13 +95,13 @@ public class VM {
 	 * @param _memory a memória da CPU
 	 * @param _word	a palavra que será escrita em todos os endereços da memória
 	 */
-	private void fillMemory(Word[] _memory, Word _word) {
+	private void fillMemory(Memory _memory, Word _word) {
 													log.info("{} {} Filling memory addresses...", Tag.MEMORY, Tag.SETUP);
 		/* Para cada endereço na memória... */
-		for(int i = 0; i < _memory.length; i++) {
+		for(int i = 0; i < _memory.data.length; i++) {
 			Word blankWord = Word.copy(_word);
 			/* Escrever a palavra em branco (sem conteúdo) */
-			_memory[i] = blankWord; 
+			_memory.data[i] = blankWord; 
 		};
 	}
    
@@ -107,11 +121,11 @@ public class VM {
 		return isMemoryBlank;
 	}
 
-	private boolean isMemoryEmpty(Word[] _memory) {	log.info("{} {} Checking if memory is empty...", Tag.MEMORY, Tag.SETUP);
+	private boolean isMemoryEmpty(Memory _memory) {	log.info("{} {} Checking if memory is empty...", Tag.MEMORY, Tag.SETUP);
 		boolean isMemoryEmpty = true;
 
-		for (int i = 0; i < _memory.length; i++) {
-			if(_memory[i] != null) {
+		for (int i = 0; i < _memory.data.length; i++) {
+			if(_memory.data[i] != null) {
 				isMemoryEmpty = false;				log.debug("{} {} Memory is empty", Tag.MEMORY, Tag.SETUP);
 				break;
 			}

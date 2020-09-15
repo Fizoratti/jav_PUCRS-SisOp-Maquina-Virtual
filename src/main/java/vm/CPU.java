@@ -9,9 +9,6 @@ public class CPU {
 
 	private int programCounter;
 
-	/**
-	 * instruction register
-	 */
 	private Word instructionRegister;
 
 	/**
@@ -49,6 +46,10 @@ public class CPU {
 	 */
 	public CPU(Word[] _memory) {     		log.info("{} {} Starting procedure...", Tag.CPU, Tag.SETUP);
 		memory = _memory;					log.info("{} {} Acquired a memory", Tag.CPU, Tag.SETUP);
+		reg = new int[8];					log.info("{} {} Allocated area for registers", Tag.CPU, Tag.SETUP);
+	}
+	public CPU(Memory _memory) {     		log.info("{} {} Starting procedure...", Tag.CPU, Tag.SETUP);
+		memory = _memory.data;					log.info("{} {} Acquired a memory", Tag.CPU, Tag.SETUP);
 		reg = new int[8];					log.info("{} {} Allocated area for registers", Tag.CPU, Tag.SETUP);
 	}
 
