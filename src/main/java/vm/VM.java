@@ -1,17 +1,3 @@
-// PUCRS, Escola Politécnica, Engenharia de Software
-// Disciplina Sistemas Operacionais
-// Prof. Fernando Luís Dotti
-// Trabalho - Parte I
-//
-// Código fornecido pelo professor como uma forma de resolver o enunciado
-// Este código compila e executa na VM o pequeno programa ao final, com somente tres instrucoes diferentes.
-// Alem das definicoes dos elementos solicitados, os cuidados de acesso valido a memoria, instrucoes validas,
-// interrupcoes, o ciclo de instrucao com as tres fases, ja estao contemplados.
-// Pede-se estudar e enteder este codigo. Os alunos podem adotar ideias parecidas.   
-// Falta implementar as demais instrucoes da CPU, assim como os programas solicitados.
-// Este trabalho tem menos de 200 linhas de código.
-// A VM completa, construida pelo professor, incluindo o programa P1, tem 234 linhas.
-
 package vm;
 
 import org.slf4j.Logger;
