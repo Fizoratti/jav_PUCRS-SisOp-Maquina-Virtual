@@ -1,4 +1,4 @@
-package so;
+package os;
 
 import vm.CPU;
 import vm.Program;

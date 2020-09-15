@@ -3,7 +3,7 @@ package vm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import so.MemoryManager;
+import os.MemoryManager;
 
 public class CPU {
 
