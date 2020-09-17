@@ -78,6 +78,6 @@ public class OperatingSystem {
 
 	/* END */
 
-    private static Logger log = LoggerFactory.getLogger(OperatingSystem.class.getName());
+    private static Logger log = LoggerFactory.getLogger("");
 
 }

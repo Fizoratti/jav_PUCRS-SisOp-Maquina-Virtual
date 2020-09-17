@@ -70,6 +70,6 @@ public class Memory {
 
     /* END */
 
-    private static Logger log = LoggerFactory.getLogger(Memory.class);
+    private static Logger log = LoggerFactory.getLogger("");
 
 }

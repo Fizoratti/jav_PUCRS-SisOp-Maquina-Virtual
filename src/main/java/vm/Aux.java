@@ -32,6 +32,6 @@ public class Aux {
 
     /* END */
 
-    private static Logger log = LoggerFactory.getLogger(CPU.class);
+    private static Logger log = LoggerFactory.getLogger("");
 
 }

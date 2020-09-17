@@ -258,6 +258,6 @@ public class CPU {
 
 	/* END */
 
-    private static Logger log = LoggerFactory.getLogger(CPU.class);
+    private static Logger log = LoggerFactory.getLogger("");
 
 }
