@@ -10,22 +10,24 @@ public class Tag {
     private static String COLOR_CYAN    = "[36m";
     
     
-    private static String LABEL_VM      = "    [ VM ]";
-    private static String LABEL_CPU     = "   [ CPU ]";
-    private static String LABEL_MEMORY  = "[ Memory ]";
+    private static String LABEL_VM      = "     [ VM ]";
+    private static String LABEL_CPU     = "    [ CPU ]";
+    private static String LABEL_MEMORY  = " [ Memory ]";
+    private static String LABEL_PROGRAM = "[ Program ]";
     private static String LABEL_SETUP   = "(Setup)";
     
     
     public static String VM     = tag(COLOR_CYAN, LABEL_VM);
     public static String CPU    = tag(COLOR_CYAN, LABEL_CPU);
     public static String MEMORY = tag(COLOR_CYAN, LABEL_MEMORY);
+    public static String PROGRAM = tag(COLOR_CYAN, LABEL_PROGRAM);
     
     public static String SETUP  = tag(COLOR_YELLOW, LABEL_SETUP);
     
 
 
     private static String tag(String _color, String _label) {
-        return (char)27 + _color + _label + (char)27 + "[0m" + " :";
+        return (char)27 + _color + _label + (char)27 + "[0m" + "";
     }
     
 

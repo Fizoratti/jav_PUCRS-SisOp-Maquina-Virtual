@@ -3,21 +3,26 @@ package vm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VM {
+import os.OperatingSystem;
+
+public class VirtualMachine {
+
+    private static VirtualMachine INSTANCE;
 
 	// public int memorySize;    
 	// public Word[] memory;
 	public Memory memory;
-    public CPU cpu; 
+	public CPU cpu;
+	public OperatingSystem os;
 
-	public VM() {									log.info("{} {} Starting procedure . . .", Tag.VM, Tag.SETUP);
+	private VirtualMachine() {						log.info("{} {} Starting procedure . . .", Tag.VM, Tag.SETUP);
 	
 		// aux = new Aux();							log.info("{} {} "+Tag.green("Aux is set"), Tag.VM, Tag.SETUP);
 
 		// Experimentando
-		Memory.newMemory(1024);
+		Memory.createMemory(1024);						log.info("{} {} Starting new memory with size of {}", Tag.MEMORY, Tag.SETUP, 1024);
 		memory = Memory.get();
-		initMemory(memory);
+		initMemory(memory);							log.info("{} {} "+Tag.green("Memory is set"), Tag.MEMORY, Tag.SETUP);
 
 		cpu = new CPU(memory);						
 		cpu.setContext(0, memory.size, 0);			log.info("{} {} Context of CPU is set", Tag.CPU, Tag.SETUP);
@@ -48,19 +53,24 @@ public class VM {
 	 * Inicia a máquina virtual carregando na memória e executando cada um dos programas.
 	 * @param _programs a lista de programas que a mv deve executar
 	 */
-	public void init(Program[] _programs) {			log.info("{} Virtual Machine running . . .\n", Tag.VM);
+	public void init(Program[] _programs) {			log.info("{} Virtual Machine running . . .\n", Tag.PROGRAM);
 		// Para cada programa da lista...
 		for (Program program : _programs) {
 			/* Carrega na memoria... */
-			Aux.carga(program, memory);				log.info("{} "+Tag.green("Program successfully loaded"), Tag.VM);
+			Aux.carga(program, memory);				log.info("{} "+Tag.green("Program successfully loaded"), Tag.PROGRAM);
 			
 			/* Executa o programa */				
             // run(program.processID);									log.info("{} Program ended\n", Tag.VM);
-            run();									log.info("{} "+Tag.red("Program ended")+"\n", Tag.VM);
+            run();									log.info("{} "+Tag.red("Program ended")+"\n", Tag.PROGRAM);
 
 			/* Sempre que der carga na memoria, aumentar o processID */
 			// program.processID++;
         }
+	}
+
+	public void init(OperatingSystem _os) {			log.info("{} Virtual Machine running . . .\n", Tag.VM);
+		this.os = _os;
+		os.start();
 	}
 
 
@@ -133,6 +143,21 @@ public class VM {
 		
 		return isMemoryEmpty;
 	}
+
+
+
+
+    public static void createVM() {
+        if(INSTANCE == null)
+            INSTANCE = new VirtualMachine();
+    }
+
+
+    public static VirtualMachine get() {
+        return INSTANCE;
+    }
+
+
 
 	/* END */
 

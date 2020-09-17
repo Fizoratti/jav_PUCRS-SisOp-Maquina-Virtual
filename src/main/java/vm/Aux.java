@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 public class Aux {
 
     public static void carga(Program _program, Word[] _memory) {
-                                            log.info("{} Loading program . . .", Tag.MEMORY);
+                                            log.info("{} Loading program . . .", Tag.PROGRAM);
         Word[] program = _program.read();
 
         for (int i = 0; i < program.length; i++) {

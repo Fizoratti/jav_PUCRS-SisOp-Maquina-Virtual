@@ -56,7 +56,7 @@ public class Memory {
     }
 
 
-    public static void newMemory(int _size) {
+    public static void createMemory(int _size) {
         if(INSTANCE == null)
             INSTANCE = new Memory(_size);
     }
