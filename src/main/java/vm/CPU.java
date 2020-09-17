@@ -250,7 +250,7 @@ public class CPU {
 			}
 
 			if (!(interruption == Interrupts.None)) {
-				log.warn("{} Program was interrupted by [ {} ]", Tag.CPU, interruption);
+				log.warn("{} "+Tag.red("Program was interrupted by [ {} ]"), Tag.CPU, interruption);
 				break;						// break sai do loop da cpu
 			}
 		}

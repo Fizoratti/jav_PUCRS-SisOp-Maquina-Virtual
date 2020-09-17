@@ -20,7 +20,7 @@ public class VirtualMachine {
 		// aux = new Aux();							log.info("{} {} "+Tag.green("Aux is set"), Tag.VM, Tag.SETUP);
 
 		// Experimentando
-		Memory.createMemory(1024);						log.info("{} {} Starting new memory with size of {}", Tag.MEMORY, Tag.SETUP, 1024);
+		Memory.createMemory(1024);					log.info("{} {} Starting new memory with size of {}", Tag.MEMORY, Tag.SETUP, 1024);
 		memory = Memory.get();
 		setMemory(memory);							log.info("{} {} "+Tag.green("Memory is set"), Tag.MEMORY, Tag.SETUP);
 
@@ -61,7 +61,7 @@ public class VirtualMachine {
 			
 			/* Executa o programa */				
             // run(program.processID);									log.info("{} Program ended\n", Tag.VM);
-            run();									log.info("{} "+Tag.red("Program ended")+"\n", Tag.PROGRAM);
+            run();									log.info("{} Program ended"+"\n", Tag.PROGRAM);
 
 			/* Sempre que der carga na memoria, aumentar o processID */
 			// program.processID++;
@@ -75,7 +75,7 @@ public class VirtualMachine {
 
 
 
-	public void stop() {							log.info("{} "+Tag.red("Virtual Machine stopped")+"\n", Tag.VM);
+	public void stop() {							log.warn("{} "+Tag.red("Virtual Machine stopped")+"\n", Tag.VM);
 		
 	}
 
