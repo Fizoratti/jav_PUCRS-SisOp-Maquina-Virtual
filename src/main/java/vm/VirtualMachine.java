@@ -42,7 +42,7 @@ public class VirtualMachine {
 	/**
 	 * Executa o conteúdo presente na memória (instruções e dados de um programa).
 	 */
-	private void run() {							log.info("{} Program is running . . .", Tag.VM);
+	private void run() {							log.info("{} {} Program is running . . .", Tag.VM, Tag.PROGRAM);
 		// aux.dump(memory);
 		cpu.run();
 		// aux.dump(memory);
@@ -53,15 +53,15 @@ public class VirtualMachine {
 	 * Inicia a máquina virtual carregando na memória e executando cada um dos programas.
 	 * @param _programs a lista de programas que a mv deve executar
 	 */
-	public void init(Program[] _programs) {			log.info("{} Virtual Machine running . . .\n", Tag.PROGRAM);
+	public void init(Program[] _programs) {			log.info("{} Virtual Machine running . . .\n", Tag.VM);
 		// Para cada programa da lista...
 		for (Program program : _programs) {
 			/* Carrega na memoria... */
-			Aux.carga(program, memory);				log.info("{} "+Tag.green("Program successfully loaded"), Tag.PROGRAM);
+			Aux.carga(program, memory);				log.info("{} {} "+Tag.green("Program successfully loaded"), Tag.VM, Tag.PROGRAM);
 			
 			/* Executa o programa */				
             // run(program.processID);									log.info("{} Program ended\n", Tag.VM);
-            run();									log.info("{} Program ended"+"\n", Tag.PROGRAM);
+            run();									log.info("{} {} Program ended"+"\n", Tag.VM, Tag.PROGRAM);
 
 			/* Sempre que der carga na memoria, aumentar o processID */
 			// program.processID++;
@@ -75,7 +75,7 @@ public class VirtualMachine {
 
 
 
-	public void stop() {							log.warn("{} "+Tag.red("Virtual Machine stopped")+"\n", Tag.VM);
+	public void stop() {							log.info("{} Virtual Machine stopped"+"\n", Tag.VM);
 		
 	}
 

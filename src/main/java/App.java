@@ -13,7 +13,7 @@ import vm.CPU;
 import vm.Tag;
 
 public class App {
-    public static void main(String[] args) {    log.info(Tag.green("It works!")+"\n");
+    public static void main(String[] args) {            log.info(Tag.green("It works!")+"\n");
 
         Program[] programs = {
             Programs.p0,
@@ -24,21 +24,21 @@ public class App {
         };
         
         VirtualMachine.createVM();
-        VirtualMachine vm = VirtualMachine.get();;                       log.info("{} {} "+Tag.green("VM is set!")+"\n", Tag.VM, Tag.SETUP);
+        VirtualMachine vm = VirtualMachine.get();       log.info("{} {} "+Tag.green("Virtual Machine is set!")+"\n", Tag.VM, Tag.SETUP);
 
-        OperatingSystem.createOS();
-        OperatingSystem os = OperatingSystem.get();
+        // OperatingSystem.createOS();
+        // OperatingSystem os = OperatingSystem.get();     log.info("{} {} "+Tag.green("Operating System is set!")+"\n", Tag.OS, Tag.SETUP);
 
-        try {
-            os.start();
-            os.stop();
-        } catch (Exception e) {
-            log.info("Uncaught error!");
-        }
+        // try {
+        //     os.start();
+        //     os.stop();
+        // } catch (Exception e) {
+        //     log.info("Uncaught error!");
+        // }
 
 
-        vm.init(os);
-        vm.os.load(programs);
+        // vm.init(os);
+        // vm.os.load(programs);
 
         vm.init(programs);                     
         vm.stop();
