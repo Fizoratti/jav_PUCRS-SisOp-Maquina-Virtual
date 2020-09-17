@@ -22,7 +22,7 @@ public class VirtualMachine {
 		// Experimentando
 		Memory.createMemory(1024);						log.info("{} {} Starting new memory with size of {}", Tag.MEMORY, Tag.SETUP, 1024);
 		memory = Memory.get();
-		initMemory(memory);							log.info("{} {} "+Tag.green("Memory is set"), Tag.MEMORY, Tag.SETUP);
+		setMemory(memory);							log.info("{} {} "+Tag.green("Memory is set"), Tag.MEMORY, Tag.SETUP);
 
 		cpu = new CPU(memory);						
 		cpu.setContext(0, memory.size, 0);			log.info("{} {} Context of CPU is set", Tag.CPU, Tag.SETUP);
@@ -93,7 +93,7 @@ public class VirtualMachine {
 	// 	}
 	// }
 
-	private void initMemory(Memory _memory) {
+	private void setMemory(Memory _memory) {
 		if(isMemoryEmpty(_memory)) {
 			fillMemory(_memory, Word.BLANK);
 		}
