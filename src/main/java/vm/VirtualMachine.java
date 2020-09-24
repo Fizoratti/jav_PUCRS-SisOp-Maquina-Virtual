@@ -7,15 +7,11 @@ import os.OperatingSystem;
 
 public class VirtualMachine {
 
-    private static VirtualMachine INSTANCE;
-
-	// public int memorySize;    
-	// public Word[] memory;
-	public Memory memory;
 	public CPU cpu;
+	public Memory memory;
 	public OperatingSystem os;
 
-	private VirtualMachine() {						log.info("{} {} Starting procedure . . .", Tag.VM, Tag.SETUP);
+	public VirtualMachine(Object props) {						log.info("{} {} Starting procedure . . .", Tag.VM, Tag.SETUP);
 	
 		// aux = new Aux();							log.info("{} {} "+Tag.green("Aux is set"), Tag.VM, Tag.SETUP);
 
@@ -68,7 +64,7 @@ public class VirtualMachine {
         }
 	}
 
-	public void init(OperatingSystem _os) {			log.info("{} Virtual Machine running . . .\n", Tag.VM);
+	public void initOS(OperatingSystem _os) {			log.info("{} Virtual Machine running . . .\n", Tag.VM);
 		this.os = _os;
 		os.start();
 	}

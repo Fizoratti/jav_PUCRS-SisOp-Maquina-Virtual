@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public class Aux {
 
-    public static void carga(Program _program, Word[] _memory) {
+    public static void load(Program _program, Word[] _memory) {
                                             log.info("{} Loading program . . .", Tag.PROGRAM);
         Word[] program = _program.read();
 
@@ -23,7 +23,7 @@ public class Aux {
     }
 
 
-    public static void carga(Program _program, Memory _memory) {
+    public static void load(Program _program, Memory _memory) {
         Word[] program = _program.read();
         for (int i = 0; i < program.length; i++) {
             _memory.data[i] = program[i];

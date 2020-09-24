@@ -58,9 +58,9 @@ public class CPU {
 	 * no futuro esta funcao vai ter que ser expandida para setar contexto de execucao,
 	 * agora,  setamos somente os registradores base, limite e pc (deve ser zero nesta 
 	 * versao) reset da interrupcao registrada.
-	 * @param _base 
+	 * @param _base onde fica o início da memória
 	 * @param _limite o tamanho limite máximo da memória
-	 * @param _pc
+	 * @param _pc o endereço na memoria
 	 */
 	public void setContext(int _base, int _limite, int _pc) {
 											log.info("{} {} Setting context...", Tag.CPU, Tag.SETUP);
@@ -75,17 +75,11 @@ public class CPU {
 	/**
 	 * Todo acesso a memoria tem que ser verificado
 	 * @param e posição (int) de um endereço na memória
-	 * @return 
 	 */
-	private boolean isLegal(int e) {
-		boolean isLegal = true;
-
+	private void validateProgramCounter(int e) {
 		if ((e < base) || (e > limit)) {                      //  valida se endereco 'e' na memoria ee posicao legal
-			interruption = Interrupts.InvalidAddress;             //  caso contrario ja liga interrupcao
-			isLegal = false;
+			throw new InvalidAddressException(int address);
 		};
-
-		return isLegal;
 	}
 
 	// public int traduzirEnderecoMemoria(int pc, int processID) {
@@ -95,15 +89,13 @@ public class CPU {
 	/**
 	 * Execucao da CPU supoe que o contexto da CPU, vide acima, esta devidamente setado
 	 */
-	public void run() {						log.debug("CPU is running...");
+	public void run() {							log.debug("CPU is running...");
 		while (true) {
-			if (isLegal(programCounter)) { 	
-											log.debug("CPU: Program counter is legal");
-				// instructionRegister = memory[traduzirEnderecoMemoria(ir.p, processID)]; 			
-											log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+			try (validateProgramCounter()) {	log.debug("CPU: Program counter is legal");		
+												log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
 				instructionRegister = memory[programCounter]; 			
-											log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
-											log.debug("CPU: Running instruction {}", instructionRegister.opc);
+												log.debug("CPU: busca posicao da memoria apontada por pc, guarda em ir");
+												log.debug("CPU: Running instruction {}", instructionRegister.opc);
 				switch (instructionRegister.opc) {
 
 					// ----- J - Type Instructions ----- 
@@ -248,10 +240,9 @@ public class CPU {
 						break;
 				}
 			}
-
-			if (!(interruption == Interrupts.None)) {
-				log.warn("{} {} "+Tag.red("Program was interrupted by [ {} ]"), Tag.CPU, Tag.PROGRAM, interruption);
-				break;						// break sai do loop da cpu
+			catch(Exception e) {
+				log.warn("{} {} "+Tag.red("Program was interrupted by [ {} ]"), Tag.CPU, Tag.PROGRAM, e.getMessage());
+				break;
 			}
 		}
 	}

@@ -9,41 +9,34 @@ import vm.Memory;
 import vm.Program;
 import vm.Tag;
 import vm.VirtualMachine;
+import vm.VirtualMachineLibrary;
 
 public class OperatingSystem {
 
-    public static OperatingSystem INSTANCE;
-
-    public CPU cpu;
+    public VirtualMachineLibrary VM;
     
     public MemoryManager memoryManager;
+    
+    public ProcessManager processManager;
 
-    public Status status;
 
-    // ProcessManager
-
-    // FileManager
 
     private OperatingSystem() {
         memoryManager = new MemoryManager(1);
+        processManager = new ProcessManager();
+        VM = new VirtualMachineLibrary();
     }
 
     public void start() {
-        this.status = Status.ACTIVE;
+        VM.initOS(this);
     }
 
     public void load(Program _program) {
-        this.status = Status.RUNNING;
-        /* Carrega na memoria... */
-        Aux.carga(_program, Memory.get());				log.info("{} "+Tag.green("Program successfully loaded"), Tag.VM);
-        
-        /* Executa o programa */				
-        // run(program.processID);									log.info("{} Program ended\n", Tag.VM);
-        
-        // VirtualMachine.cpu.run();									    log.info("{} "+Tag.red("Program ended")+"\n", Tag.VM);
+        VM.load(_program, Memory.get());				log.info("{} "+Tag.green("Program successfully loaded"), Tag.VM);
+        Process process = processManager.newProcess(_program);
+        processManager.startProcess(process);
+        								                log.info("{} "+Tag.red("Program ended")+"\n", Tag.VM);
 
-        /* Sempre que der carga na memoria, aumentar o processID */
-        // program.processID++;
     }
 
     public void load(Program[] _programs) {
@@ -53,16 +46,8 @@ public class OperatingSystem {
     }
 
     public void stop() {
-        this.status = Status.INACTIVE;
+        VM.stopOS(this);  // this == INSTANCE
     }
-
-
-    enum Status {
-        ACTIVE,
-        INACTIVE,
-        RUNNING;
-    }
-
 
     public static void createOS() {
         if(INSTANCE == null)
